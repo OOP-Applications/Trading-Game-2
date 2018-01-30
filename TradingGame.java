@@ -2,10 +2,8 @@ import java.text.*;
 import java.util.*;
 
 class TradingGame{
-<<<<<<< HEAD
-    static final int NUMBER_OF_DAYS=10;
-=======
-<<<<<<< HEAD
+
+
     static final int NUMBER_OF_DAYS = 10;
     static final double BASE_PRICE = 10;
     static final double VARIATION = 5;
@@ -15,19 +13,8 @@ class TradingGame{
     static int appleInventory = 0;
     static int pearInventory = 0;
     static double applePrice, pearPrice;
-=======
-    static final int NUMBER_OF DAYS=10;
->>>>>>> 54659fc5796029ce15527a718dd88b0fd63dfaa4
-    static final double BASE_PRICE=10;
-    static final double VARIATION = 5;
-    static final double INIITAL_CASH=100;
 
-    static double cash=INIITAL_CASH;
-    static int appleinventory=0;
-    static int pearinventory=0;
-    static double applePrice, pearPrice
-    public static void main(String[] args){
->>>>>>> 986f4601eb9de99c226e33be29ff5f2caa2cca4b
+
 
     public static void main(String[] args){
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
