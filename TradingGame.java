@@ -43,7 +43,13 @@ class TradingGame{
     }
 
     public static int getChoice(){
-
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.print("Your choice: ");
+            choice = keyboard.nextInt();
+        } while (choice > 7 || choice < 1);
+        return choice;
     }
 
     public static String currency Formatter(double amount){
@@ -52,11 +58,13 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
-
+      return ((int)((basePrice + (Math.random() > .5 ? 1 : -1) * variation) * 100))/100.0;
     }
 
     public static int getQuantity(String product, String action){
-
+      System.out.print("How many " + product + " do you want to " + action + "? ");
+      Scanner keyboard = new Scanner(System.in);
+      return keyboard.nextInt();
     }
 
     public static boolean sellApples(int amount){
@@ -89,7 +97,10 @@ class TradingGame{
     public static boolean buyPears(int amount){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 71c508ae7fd2980886fdd3673c380872fbbea799
         if (amount * pearPrice < cash) {
             cash -= amount * pearPrice;
             pearInventory += amount;
@@ -99,6 +110,11 @@ class TradingGame{
 
 
 
+<<<<<<< HEAD
+=======
+>>>>>>> Rum/Dan
+=======
 >>>>>>> 986f4601eb9de99c226e33be29ff5f2caa2cca4b
+>>>>>>> 71c508ae7fd2980886fdd3673c380872fbbea799
     }
 }
