@@ -27,18 +27,38 @@ class TradingGame{
     }
 
     public static boolean sellApples(int amount){
-
+        if (amount > appleInventory) {
+            return false;
+        }
+        cash += amount * applePrice;
+        appleInventory -= amount;
+        return true;
     }
 
     public static boolean sellPears(int amount){
-
+        if (amount > pearInventory) {
+            return false;
+        }
+        cash += amount * pearPrice;
+        pearInventory -= amount;
+        return true;
     }
 
     public static boolean buyApples(int amount){
-
+        if (amount * applePrice < cash) {
+            cash -= amount * applePrice;
+            appleInventory += amount;
+            return true;
+        }
+        return false;
     }
 
     public static boolean buyPears(int amount){
-        
+        if (amount * pearPrice < cash) {
+            cash -= amount * pearPrice;
+            pearInventory += amount;
+            return true;
+        }
+        return false;
     }
 }
