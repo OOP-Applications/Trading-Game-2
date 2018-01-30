@@ -71,15 +71,15 @@ class TradingGame{
     }
 
     public static boolean buyPears(int amount){
-<<<<<<< HEAD
+
         if (amount * pearPrice < cash) {
             cash -= amount * pearPrice;
             pearInventory += amount;
             return true;
         }
         return false;
-=======
 
->>>>>>> HeathJustin
+
+
     }
 }
