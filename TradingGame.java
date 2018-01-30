@@ -2,6 +2,7 @@ import java.text.*;
 import java.util.*;
 
 class TradingGame{
+
     static final int NUMBER_OF_DAYS = 10;
     static final double BASE_PRICE = 10;
     static final double VARIATION = 5;
@@ -11,6 +12,7 @@ class TradingGame{
     static int appleInventory = 0;
     static int pearInventory = 0;
     static double applePrice, pearPrice;
+
 
     public static void main(String[] args){
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
