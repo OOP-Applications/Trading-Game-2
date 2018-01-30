@@ -98,25 +98,11 @@ class TradingGame{
 
     public static boolean buyPears(int amount){
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 71c508ae7fd2980886fdd3673c380872fbbea799
         if (amount * pearPrice < cash) {
             cash -= amount * pearPrice;
             pearInventory += amount;
             return true;
         }
         return false;
-
-
-
-<<<<<<< HEAD
-=======
->>>>>>> Rum/Dan
-=======
->>>>>>> 986f4601eb9de99c226e33be29ff5f2caa2cca4b
->>>>>>> 71c508ae7fd2980886fdd3673c380872fbbea799
     }
 }
