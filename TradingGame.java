@@ -11,7 +11,13 @@ class TradingGame{
     }
 
     public static int getChoice(){
-
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.print("Your choice: ");
+            choice = keyboard.nextInt();
+        } while (choice > 7 || choice < 1);
+        return choice;
     }
 
     public static String currency Formatter(double amount){
@@ -39,6 +45,6 @@ class TradingGame{
     }
 
     public static boolean buyPears(int amount){
-        
+
     }
 }
