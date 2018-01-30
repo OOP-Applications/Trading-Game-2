@@ -25,11 +25,13 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
-
+      return ((int)((basePrice + (Math.random() > .5 ? 1 : -1) * variation) * 100))/100.0;
     }
 
     public static int getQuantity(String product, String action){
-
+      System.out.print("How many " + product + " do you want to " + action + "? ");
+      Scanner keyboard = new Scanner(System.in);
+      return keyboard.nextInt();
     }
 
     public static boolean sellApples(int amount){
