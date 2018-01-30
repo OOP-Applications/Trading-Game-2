@@ -2,7 +2,7 @@ import java.text.*;
 import java.util.*;
 
 class TradingGame{
-    static final int NUMBER_OF DAYS=10;
+    static final int NUMBER_OF_DAYS=10;
     static final double BASE_PRICE=10;
     static final double VARIATION = 5;
     static final double INIITAL_CASH=100;
