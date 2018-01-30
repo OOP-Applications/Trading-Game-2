@@ -2,6 +2,15 @@ import java.text.*;
 import java.util.*;
 
 class TradingGame{
+    static final int NUMBER_OF DAYS=10;
+    static final double BASE_PRICE=10;
+    static final double VARIATION = 5;
+    static final double INIITAL_CASH=100;
+
+    static double cash=INIITAL_CASH;
+    static int appleinventory=0;
+    static int pearinventory=0;
+    static double applePrice, pearPrice
     public static void main(String[] args){
 
     }
