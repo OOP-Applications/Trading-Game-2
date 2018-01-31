@@ -1,4 +1,4 @@
-import java.text.*;
+   import java.text.*;
 import java.util.*;
 
 class TradingGame{
@@ -28,9 +28,12 @@ class TradingGame{
                         System.out.println("Cash: " + currencyFormatter(cash));
                         System.out.println("Apple inventory: " + appleInventory);
                         System.out.println("Pear inventory: " + pearInventory);
+                     
+                    }
                 }
             }
         }
+
     }
 
     public static void printMenu(){
