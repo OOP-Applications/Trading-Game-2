@@ -50,7 +50,11 @@ class TradingGame{
                         }
                         break;
                     case 5: { // Buy buyPears
+<<<<<<< HEAD
                         amount = getQuantity("pears", "buy");
+=======
+                        int amount = getQuantity("pears", "buy");
+>>>>>>> e8f448abeb10f4fcf7cb2a6fa8218a92192ec53c
                         if (!buyPears(amount)){
                           System.out.println("You dont have enough money");
                           }
@@ -77,7 +81,7 @@ class TradingGame{
       System.out.println("4. Sell Apples");
       System.out.println("5. Buy pears");
       System.out.println("6. Sell pears");
-      Sysetm.out.println("7. I am done for today");
+      System.out.println("7. I am done for today");
 
     }
 
