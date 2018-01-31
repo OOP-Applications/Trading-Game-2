@@ -1,9 +1,8 @@
-import java.text.*;
+   import java.text.*;
 import java.util.*;
 
 class TradingGame{
 
-    static final int NUMBER_OF_DAYS=10;
     static final int NUMBER_OF_DAYS = 10;
     static final double BASE_PRICE = 10;
     static final double VARIATION = 5;
@@ -13,6 +12,7 @@ class TradingGame{
     static int appleInventory = 0;
     static int pearInventory = 0;
     static double applePrice, pearPrice;
+
 
     public static void main(String[] args){
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
@@ -28,9 +28,34 @@ class TradingGame{
                         System.out.println("Cash: " + currencyFormatter(cash));
                         System.out.println("Apple inventory: " + appleInventory);
                         System.out.println("Pear inventory: " + pearInventory);
+
+
+                    }
+
+                        break;
+                    case 2: //Print today's prices
+                        System.out.println("The price of apples is: " +
+                        currencyFormatter(applePrice));
+                        System.out.println("The price of pears is: " +
+                        currencyFormatter(pearPrice));
+                        break;
+                    case 3: //Buy apples
+                        int amount = getQuantity("apples", "buy");
+                        if (!buyApples(amount)) {
+                            System.out.println("You don't have enough money.");
+                        }
+                        break;
+                    case 4: // Sell apples
+                        int amount = getQuantity("apples", "sell");
+                        if (!buyApples(amount)){
+                            System.out.println("You don't have enough apples.");
+                        }
+                        break;
+
                 }
             }
         }
+
     }
 
     public static void printMenu(){
@@ -45,7 +70,13 @@ class TradingGame{
     }
 
     public static int getChoice(){
-
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.print("Your choice: ");
+            choice = keyboard.nextInt();
+        } while (choice > 7 || choice < 1);
+        return choice;
     }
 
     public static String currency Formatter(double amount){
@@ -54,11 +85,13 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
-
+      return ((int)((basePrice + (Math.random() > .5 ? 1 : -1) * variation) * 100))/100.0;
     }
 
     public static int getQuantity(String product, String action){
-
+      System.out.print("How many " + product + " do you want to " + action + "? ");
+      Scanner keyboard = new Scanner(System.in);
+      return keyboard.nextInt();
     }
 
     public static boolean sellApples(int amount){
