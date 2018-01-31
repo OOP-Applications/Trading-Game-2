@@ -45,7 +45,7 @@ class TradingGame{
                         break;
                     case 4: // Sell apples
                         amount = getQuantity("apples", "sell");
-                        if (!buyApples(amount)){
+                        if (!sellApples(amount)){
                             System.out.println("You don't have enough apples.");
                         }
                         break;
