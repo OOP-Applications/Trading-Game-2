@@ -20,6 +20,7 @@ class TradingGame{
             pearPrice = computePrice(BASE_PRICE, VARIATION);
             System.out.println("Day: " + day + " out of 10");
             int choice;
+            int amount;
             do{
                 printMenu();
                 choice = getChoice();
@@ -37,26 +38,26 @@ class TradingGame{
                         currencyFormatter(pearPrice));
                         break;
                     case 3: //Buy apples
-                        int amount = getQuantity("apples", "buy");
+                        amount = getQuantity("apples", "buy");
                         if (!buyApples(amount)) {
                             System.out.println("You don't have enough money.");
                         }
                         break;
                     case 4: // Sell apples
-                        int amount = getQuantity("apples", "sell");
+                        amount = getQuantity("apples", "sell");
                         if (!buyApples(amount)){
                             System.out.println("You don't have enough apples.");
                         }
                         break;
                     case 5: { // Buy buyPears
-                        int amount = getQuantity("pears", "buy");
-                        if (!buyPearsAmount){
+                        amount = getQuantity("pears", "buy");
+                        if (!buyPears(amount)){
                           System.out.println("You dont have enough money");
                           }
                         break;
                         }
                     case 6: { // Sell Pears
-                        int amount = getQuantity("pears", "sell");
+                        amount = getQuantity("pears", "sell");
                         if (!sellPears(amount)){
                           System.out.println("You dont have enough pears");
                           }
