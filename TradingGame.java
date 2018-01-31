@@ -28,8 +28,30 @@ class TradingGame{
                         System.out.println("Cash: " + currencyFormatter(cash));
                         System.out.println("Apple inventory: " + appleInventory);
                         System.out.println("Pear inventory: " + pearInventory);
+<<<<<<< HEAD
                      
                     }
+=======
+                        break;
+                    case 2: //Print today's prices
+                        System.out.println("The price of apples is: " +
+                        currencyFormatter(applePrice));
+                        System.out.println("The price of pears is: " +
+                        currencyFormatter(pearPrice));
+                        break;
+                    case 3: //Buy apples
+                        int amount = getQuantity("apples", "buy");
+                        if (!buyApples(amount)) {
+                            System.out.println("You don't have enough money.");
+                        }
+                        break;
+                    case 4: // Sell apples
+                        int amount = getQuantity("apples", "sell");
+                        if (!buyApples(amount)){
+                            System.out.println("You don't have enough apples.");
+                        }
+                        break;
+>>>>>>> af41fc5254c30cc52583ede6b8d3b2a7ecf21f5b
                 }
             }
         }
