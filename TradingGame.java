@@ -21,7 +21,7 @@ class TradingGame{
             System.out.println("Day: " + day + " out of 10");
             int choice;
             do{
-                printMenu()
+                printMenu();
                 choice = getChoice();
                 switch (choice){
                     case 1: // Print cash balance and inventory
@@ -90,7 +90,7 @@ class TradingGame{
         return choice;
     }
 
-    public static String currency Formatter(double amount){
+    public static String currencyFormatter(double amount){
       DecimalFormat myFormatter = new DecimalFormat("$###,###.00");
       return myFormatter.format(amount);
     }
