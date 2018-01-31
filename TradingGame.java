@@ -50,11 +50,7 @@ class TradingGame{
                         }
                         break;
                     case 5: { // Buy buyPears
-<<<<<<< HEAD
                         amount = getQuantity("pears", "buy");
-=======
-                        int amount = getQuantity("pears", "buy");
->>>>>>> e8f448abeb10f4fcf7cb2a6fa8218a92192ec53c
                         if (!buyPears(amount)){
                           System.out.println("You dont have enough money");
                           }
