@@ -106,22 +106,13 @@ class TradingGame{
       Scanner keyboard = new Scanner(System.in);
       return keyboard.nextInt();
     }
-
-    public static boolean sellApples(int amount){
-        if (amount > appleInventory) {
+    public static boolean sellFruits(int amount, String fruit, int inventory){
+        Integer price = prices.get(fruit);
+        if (amount > inventory) {
             return false;
         }
-        cash += amount * applePrice;
-        appleInventory -= amount;
-        return true;
-    }
-
-    public static boolean sellPears(int amount){
-        if (amount > pearInventory) {
-            return false;
-        }
-        cash += amount * pearPrice;
-        pearInventory -= amount;
+        cash += amount * price;
+        inventory -= amount;
         return true;
     }
 
