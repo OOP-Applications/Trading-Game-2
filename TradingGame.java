@@ -13,6 +13,7 @@ class TradingGame{
     static int pearInventory = 0;
     static double applePrice, pearPrice;
 
+    static final Hashtable<String, Integer> prices = new Hashtable<String, Integer> ();
 
     public static void main(String[] args){
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
