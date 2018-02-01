@@ -11,16 +11,40 @@ class TradingGame{
     static double cash = INITIAL_CASH;
     static int appleInventory = 0;
     static int pearInventory = 0;
-    static double applePrice, pearPrice;
+    static double applePrice, pearPrice, NYapplePrice, NYpearPrice, LAapplePrice, LApearPrice;
+
+    static int NYappleinventory = (int) 20 + (Math.random * 10);
+    static int NYpearinventory = (int) 20 + (Math.random * 10);
+    static int LAappleinventory = (int) 20 + (Math.random * 10);
+    static int LApearinventory = (int) 20 + (Math.random * 10);
+
+
 
 
     public static void main(String[] args){
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
-            applePrice = computePrice(BASE_PRICE, VARIATION);
-            pearPrice = computePrice(BASE_PRICE, VARIATION);
+            NYapplePrice = computePrice(BASE_PRICE, VARIATION);
+            NYpearPrice = computePrice(BASE_PRICE, VARIATION);
+            LAapplePrice = computePrice(BASE_PRICE, VARIATION);
+            LApearPrice = computePrice(BASE_PRICE, VARIATION);
             System.out.println("Day: " + day + " out of 10");
             int choice;
             int amount;
+            Scanner keyboard = new Scanner(System.in);
+            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.\n
+            The prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
+            System.out.println("Would you like to trade in New York or Los Angeles? (1 or 2)");
+            int location = keyboard.nextInt();
+
+            if (location == 1){
+                applePrice = NYapplePrice;
+                pearPrice = NYpearPrice;
+
+
+            }
+            else{
+
+            }
             do{
                 printMenu();
                 choice = getChoice();
@@ -68,6 +92,11 @@ class TradingGame{
         }
         System.out.println("You finished with: " + currencyFormatter(cash));
 
+    }
+
+    System.out.println("You finished with: " + currencyFormatter(cash));
+
+}
     }
 
     public static void printMenu(){
