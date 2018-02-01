@@ -97,13 +97,21 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
-      return ((int)((basePrice + (Math.random() > .5 ? 1 : -1) * variation) * 100))/100.0;
+        double newPrice = 0;
+        double chance = Math.random();
+        if (chance > 0.5){
+            newPrice = basePrice + (Math.random() * variation);
+        }
+        if (chance <= 0.5){
+            newPrice = basePrice - (Math.random() * variation);
+        }
+        return (newPrice);
     }
 
     public static int getQuantity(String product, String action){
-      System.out.print("How many " + product + " do you want to " + action + "? ");
-      Scanner keyboard = new Scanner(System.in);
-      return keyboard.nextInt();
+        System.out.print("How many " + product + " do you want to " + action + "? ");
+        Scanner keyboard = new Scanner(System.in);
+        return keyboard.nextInt();
     }
 
     public static boolean sellApples(int amount){
