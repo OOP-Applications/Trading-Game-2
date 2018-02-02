@@ -31,8 +31,11 @@ class TradingGame{
             int choice;
             int amount;
             Scanner keyboard = new Scanner(System.in);
-            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.\n The prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
-            System.out.println("Would you like to trade in New York or Los Angeles? (1 or 2)");
+            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.");
+            System.out.println("The prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
+            System.out.println("There are "+NYappleinventory+" apples and "+NYpearinventory+" pears in New York.");
+            System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears in Los Angeles.");
+            System.out.print("Would you like to trade in New York or Los Angeles? (1 or 2)");
             int location = keyboard.nextInt();
 
             if (location == 1){
@@ -61,26 +64,26 @@ class TradingGame{
                         break;
                     case 3: //Buy apples
                         amount = getQuantity("apples", "buy");
-                        if (!buyApples(amount)) {
+                        if (!buyApples(amount, location, NYappleinventory, LAappleinventory)) {
                             System.out.println("You don't have enough money.");
                         }
                         break;
                     case 4: // Sell apples
                         amount = getQuantity("apples", "sell");
-                        if (!sellApples(amount)){
+                        if (!sellApples(amount, location, NYappleinventory, LAappleinventory)){
                             System.out.println("You don't have enough apples.");
                         }
                         break;
                     case 5: { // Buy buyPears
                         amount = getQuantity("pears", "buy");
-                        if (!buyPears(amount)){
+                        if (!buyPears(amount, location, NYpearinventory, LApearinventory)){
                           System.out.println("You dont have enough money");
                           }
                         break;
                         }
                     case 6: { // Sell Pears
                         amount = getQuantity("pears", "sell");
-                        if (!sellPears(amount)){
+                        if (!sellPears(amount, location, NYpearinventory, LApearinventory) ) {
                           System.out.println("You dont have enough pears");
                           }
                         break;
@@ -128,38 +131,86 @@ class TradingGame{
       return keyboard.nextInt();
     }
 
-    public static boolean sellApples(int amount){
+    public static boolean sellApples(int amount, int location, int NYappleinventory, int LAappleinventory){
         if (amount > appleInventory) {
             return false;
         }
         cash += amount * applePrice;
         appleInventory -= amount;
-        return true;
-    }
+        if (location == 1){
+            NYappleinventory += amount;
+        } else{
+            LAappleinventory += amount;
+            }
+            return true;
+        }
 
-    public static boolean sellPears(int amount){
+    public static boolean sellPears(int amount, int location, int NYpearinventory, int LApearinventory){
         if (amount > pearInventory) {
             return false;
         }
         cash += amount * pearPrice;
         pearInventory -= amount;
-        return true;
-    }
+        if (location == 1){
+            if (NYpearinventory > 0){
+                NYpearinventory += amount;
+                }
+        } else{
+            if (LApearinventory > 0){
+                LApearinventory += amount;
+                }
+            }
+            return true;
+        }
 
-    public static boolean buyApples(int amount){
+    public static boolean buyApples(int amount, int location, int NYappleinventory, int LAappleinventory){
         if (amount * applePrice < cash) {
             cash -= amount * applePrice;
             appleInventory += amount;
+            if (location == 1){
+                if (NYappleinventory > 0){
+                    NYappleinventory -= amount;
+                    if (NYappleinventory == 0){
+                        System.out.println("There are no apples left in New York.");
+
+                    }
+                }
+            } else{
+                if (LAappleinventory > 0){
+                    LAappleinventory -= amount;
+                    if (LAappleinventory == 0){
+                        System.out.println("There are no apples left in Los Angeles. ");
+
+                    }
+                }
+            }
             return true;
         }
         return false;
     }
 
-    public static boolean buyPears(int amount){
+    public static boolean buyPears(int amount, int location, int NYpearinventory, int LApearinventory){
 
         if (amount * pearPrice < cash) {
             cash -= amount * pearPrice;
             pearInventory += amount;
+            if (location == 1){
+                if (NYpearinventory > 0){
+                    NYpearinventory -= amount;
+                    if (NYpearinventory == 0){
+                        System.out.println("There are no pears left in New York.");
+
+                    }
+                }
+            } else{
+                if (LApearinventory > 0){
+                    LApearinventory -= amount;
+                    if (LApearinventory == 0){
+                        System.out.println("There are no pears left in Los Angeles. ");
+
+                    }
+                }
+            }
             return true;
         }
         return false;
