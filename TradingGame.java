@@ -1,4 +1,4 @@
-   import java.text.*;
+import java.text.*;
 import java.util.*;
 
 class TradingGame{
@@ -13,10 +13,10 @@ class TradingGame{
     static int pearInventory = 0;
     static double applePrice, pearPrice, NYapplePrice, NYpearPrice, LAapplePrice, LApearPrice;
 
-    static int NYappleinventory = (int) 20 + (Math.random * 10);
-    static int NYpearinventory = (int) 20 + (Math.random * 10);
-    static int LAappleinventory = (int) 20 + (Math.random * 10);
-    static int LApearinventory = (int) 20 + (Math.random * 10);
+    static int NYappleinventory = (int) (20 + (Math.random() * 10));
+    static int NYpearinventory = (int) (20 + (Math.random() * 10));
+    static int LAappleinventory = (int) (20 + (Math.random() * 10));
+    static int LApearinventory = (int) (20 + (Math.random() * 10));
 
 
 
@@ -31,19 +31,17 @@ class TradingGame{
             int choice;
             int amount;
             Scanner keyboard = new Scanner(System.in);
-            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.\n
-            The prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
+            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.\n The prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
             System.out.println("Would you like to trade in New York or Los Angeles? (1 or 2)");
             int location = keyboard.nextInt();
 
             if (location == 1){
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
-
-
             }
             else{
-
+                applePrice = LAapplePrice;
+                pearPrice = LApearPrice;
             }
             do{
                 printMenu();
@@ -92,11 +90,6 @@ class TradingGame{
         }
         System.out.println("You finished with: " + currencyFormatter(cash));
 
-    }
-
-    System.out.println("You finished with: " + currencyFormatter(cash));
-
-}
     }
 
     public static void printMenu(){
