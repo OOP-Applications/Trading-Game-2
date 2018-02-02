@@ -1,4 +1,4 @@
-   import java.text.*;
+import java.text.*;
 import java.util.*;
 
 class TradingGame{
@@ -11,14 +11,16 @@ class TradingGame{
     static double cash = INITIAL_CASH;
     static int appleInventory = 0;
     static int pearInventory = 0;
-    static double applePrice, pearPrice;
+    static double currentApplePrice, currentPearPrice;
 
     static final Hashtable<String, Integer> prices = new Hashtable<String, Integer> ();
 
     public static void main(String[] args){
+        currentApplePrice = BASE_PRICE;
+        currentPearPrice = BASE_PRICE;
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
-            applePrice = computePrice(BASE_PRICE, VARIATION);
-            pearPrice = computePrice(BASE_PRICE, VARIATION);
+            currentApplePrice = computePrice(currentApplePrice, VARIATION);
+            currentPearPrice = computePrice(currentPearPrice, VARIATION);
             System.out.println("Day: " + day + " out of 10");
             int choice;
             int amount;
@@ -34,9 +36,9 @@ class TradingGame{
                         break;
                     case 2: //Print today's prices
                         System.out.println("The price of apples is: " +
-                        currencyFormatter(applePrice));
+                        currencyFormatter(currentApplePrice));
                         System.out.println("The price of pears is: " +
-                        currencyFormatter(pearPrice));
+                        currencyFormatter(currentPearPrice));
                         break;
                     case 3: //Buy apples
                         amount = getQuantity("apples", "buy");
@@ -98,15 +100,17 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
-        double newPrice = 0;
+        double newPrice;
         double chance = Math.random();
-        if (chance > 0.5){
+        if (chance > 0.5 || basePrice <= 0.5){
             newPrice = basePrice + (Math.random() * variation);
+            return (newPrice);
         }
-        if (chance <= 0.5){
+        else{
             newPrice = basePrice - (Math.random() * variation);
+            return (newPrice);
         }
-        return (newPrice);
+        //return (newPrice);
     }
 
     public static int getQuantity(String product, String action){
@@ -119,7 +123,7 @@ class TradingGame{
         if (amount > appleInventory) {
             return false;
         }
-        cash += amount * applePrice;
+        cash += amount * currentApplePrice;
         appleInventory -= amount;
         return true;
     }
@@ -128,14 +132,14 @@ class TradingGame{
         if (amount > pearInventory) {
             return false;
         }
-        cash += amount * pearPrice;
+        cash += amount * currentPearPrice;
         pearInventory -= amount;
         return true;
     }
 
     public static boolean buyApples(int amount){
-        if (amount * applePrice < cash) {
-            cash -= amount * applePrice;
+        if (amount * currentApplePrice < cash) {
+            cash -= amount * currentApplePrice;
             appleInventory += amount;
             return true;
         }
@@ -144,8 +148,8 @@ class TradingGame{
 
     public static boolean buyPears(int amount){
 
-        if (amount * pearPrice < cash) {
-            cash -= amount * pearPrice;
+        if (amount * currentPearPrice < cash) {
+            cash -= amount * currentPearPrice;
             pearInventory += amount;
             return true;
         }
