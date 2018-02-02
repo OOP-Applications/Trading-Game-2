@@ -31,8 +31,8 @@ class TradingGame{
             int choice;
             int amount;
             Scanner keyboard = new Scanner(System.in);
-            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.\n The prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
-            System.out.println("Would you like to trade in New York or Los Angeles? (1 or 2)");
+            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.\nThe prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
+            System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for New York or 2 for Los Angles");
             int location = keyboard.nextInt();
 
             if (location == 1){
