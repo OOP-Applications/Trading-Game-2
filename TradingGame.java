@@ -13,12 +13,18 @@ class TradingGame{
     static int pearInventory = 0;
     static double applePrice, pearPrice;
 
-    static final Hashtable<String, Integer> prices = new Hashtable<String, Integer> ();
+    static final Hashtable<String, Double> prices = new Hashtable<String, Double> ();
+    static final Hashtable<String, Integer> inventories = new Hashtable<String, Integer> ();
+
 
     public static void main(String[] args){
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
             applePrice = computePrice(BASE_PRICE, VARIATION);
             pearPrice = computePrice(BASE_PRICE, VARIATION);
+            prices.put("apples", applePrice);
+            prices.put("pears", pearPrice);
+            inventories.put("apples", appleInventory)
+            inventories.put("pears", pearInventory)
             System.out.println("Day: " + day + " out of 10");
             int choice;
             int amount;
@@ -40,26 +46,26 @@ class TradingGame{
                         break;
                     case 3: //Buy apples
                         amount = getQuantity("apples", "buy");
-                        if (!buyApples(amount)) {
+                        if (buyFruits(amount, "apples", appleInventory)) {
                             System.out.println("You don't have enough money.");
                         }
                         break;
                     case 4: // Sell apples
                         amount = getQuantity("apples", "sell");
-                        if (!sellApples(amount)){
+                        if (!sellFruits(amount, "apples", appleInventory)){
                             System.out.println("You don't have enough apples.");
                         }
                         break;
-                    case 5: { // Buy buyPears
+                    case 5: { // Buy Pears
                         amount = getQuantity("pears", "buy");
-                        if (!buyPears(amount)){
+                        if (!buyFruits(amount, "pears", pearInventory)){
                           System.out.println("You dont have enough money");
                           }
                         break;
                         }
                     case 6: { // Sell Pears
                         amount = getQuantity("pears", "sell");
-                        if (!sellPears(amount)){
+                        if (!sellFruits(amount, "pears", pearInventory)){
                           System.out.println("You dont have enough pears");
                           }
                         break;
@@ -106,8 +112,8 @@ class TradingGame{
       Scanner keyboard = new Scanner(System.in);
       return keyboard.nextInt();
     }
-    public static boolean sellFruits(int amount, String fruit, int inventory){
-        Integer price = prices.get(fruit);
+    public static boolean sellFruits(int amount, String fruit){
+        double price = prices.get(fruit);
         if (amount > inventory) {
             return false;
         }
@@ -115,24 +121,14 @@ class TradingGame{
         inventory -= amount;
         return true;
     }
+    public static boolean buyFruits(int amount, String fruit){
+        double price = prices.get(fruit);
+        if (amount * price < cash) {
+            cash -= amount * price;
 
-    public static boolean buyApples(int amount){
-        if (amount * applePrice < cash) {
-            cash -= amount * applePrice;
-            appleInventory += amount;
+            inventories.get(fruit) += amount;
             return true;
         }
         return false;
-    }
-
-    public static boolean buyPears(int amount){
-
-        if (amount * pearPrice < cash) {
-            cash -= amount * pearPrice;
-            pearInventory += amount;
-            return true;
-        }
-        return false;
-
     }
 }
