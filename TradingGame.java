@@ -9,12 +9,12 @@ class TradingGame{
     static final double INITIAL_CASH = 100;
 
     static double cash = INITIAL_CASH;
-    static double appleInventory = 0;
-    static double pearInventory = 0;
+    static int appleInventory = 0;
+    static int pearInventory = 0;
     static double applePrice, pearPrice;
 
     static final Hashtable<String, Double> prices = new Hashtable<String, Double> ();
-    static final Hashtable<String, Double> inventories = new Hashtable<String, Double> ();
+    static final Hashtable<String, Integer> inventories = new Hashtable<String, Integer> ();
 
 
     public static void main(String[] args){
@@ -112,9 +112,9 @@ class TradingGame{
       Scanner keyboard = new Scanner(System.in);
       return keyboard.nextInt();
     }
-    public static boolean sellFruits(double amount, String fruit){
+    public static boolean sellFruits(int amount, String fruit){
         double price = prices.get(fruit);
-        double inventory = inventories.get(fruit);
+        int inventory = inventories.get(fruit);
         if (amount > inventory) {
             return false;
         }
@@ -123,9 +123,9 @@ class TradingGame{
         inventories.put(fruit, inventory);
         return true;
     }
-    public static boolean buyFruits(double amount, String fruit){
+    public static boolean buyFruits(int amount, String fruit){
         double price = prices.get(fruit);
-        double inventory = inventories.get(fruit);
+        int inventory = inventories.get(fruit);
         if (amount * price < cash) {
             cash -= amount * price;
 
