@@ -98,7 +98,7 @@ class TradingGame{
                         break;
                     }
                 }
-            }   while (choice != 8);
+            }while (choice != 8);
         }
         System.out.println("You finished with: " + currencyFormatter(cash));
 
@@ -122,7 +122,7 @@ class TradingGame{
         do {
             System.out.print("Your choice: ");
             choice = keyboard.nextInt();
-        } while (choice > 7 || choice < 1);
+        } while (choice > 8 || choice < 1);
         return choice;
     }
 
