@@ -1,4 +1,4 @@
-   import java.text.*;
+import java.text.*;
 import java.util.*;
 
 class TradingGame{
@@ -46,7 +46,7 @@ class TradingGame{
                         break;
                     case 3: //Buy apples
                         amount = getQuantity("apples", "buy");
-                        if (buyFruits(amount, "apples")) {
+                        if (!buyFruits(amount, "apples")) {
                             System.out.println("You don't have enough money.");
                         }
                         break;
