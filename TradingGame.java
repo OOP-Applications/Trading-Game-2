@@ -148,6 +148,10 @@ class TradingGame{
             upChance = 0.05;
             crashChance = 0.15;
         }
+        else if (basePrice > 19){
+            upChance = 0.01;
+            crashChance = 0.3;
+        }
         if (chance <= upChance || basePrice <= 0.5){
             newPrice = basePrice + (Math.random() * variation);
         }
