@@ -31,11 +31,11 @@ class TradingGame{
             int choice;
             int amount;
             Scanner keyboard = new Scanner(System.in);
-            System.out.println("The prices for New York are "+NYapplePrice+" for apples and "+NYpearPrice+" for pears.");
-            System.out.println("The prices in Los Angeles are "+LAapplePrice+" for apples and "+LApearPrice+" for pears.");
+            System.out.println("\nThe prices for New York are $"+NYapplePrice+" for apples and $"+NYpearPrice+" for pears.");
+            System.out.println("The prices in Los Angeles are $"+LAapplePrice+" for apples and $"+LApearPrice+" for pears.\n");
             System.out.println("There are "+NYappleinventory+" apples and "+NYpearinventory+" pears in New York.");
-            System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears in Los Angeles.");
-            System.out.print("Would you like to trade in New York or Los Angeles? (1 or 2)");
+            System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears in Los Angeles.\n");
+            System.out.print("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
             int location = keyboard.nextInt();
 
             if (location == 1){
@@ -62,34 +62,41 @@ class TradingGame{
                         System.out.println("The price of pears is: " +
                         currencyFormatter(pearPrice));
                         break;
-                    case 3: //Buy apples
+                    case 3: //Print inventory of current city
+                        if (location == 1){
+                            System.out.println("There are "+NYappleinventory+" apples and "+NYpearinventory+" pears here in New York.");
+                        } else{
+                            System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears here in Los Angeles.");
+                        }
+                        break;
+                    case 4: //Buy apples
                         amount = getQuantity("apples", "buy");
-                        if (!buyApples(amount, location, NYappleinventory, LAappleinventory)) {
+                        if (!buyApples(amount, location)) {
                             System.out.println("You don't have enough money.");
                         }
                         break;
-                    case 4: // Sell apples
+                    case 5: // Sell apples
                         amount = getQuantity("apples", "sell");
-                        if (!sellApples(amount, location, NYappleinventory, LAappleinventory)){
+                        if (!sellApples(amount, location)){
                             System.out.println("You don't have enough apples.");
                         }
                         break;
-                    case 5: { // Buy buyPears
+                    case 6: { // Buy buyPears
                         amount = getQuantity("pears", "buy");
-                        if (!buyPears(amount, location, NYpearinventory, LApearinventory)){
+                        if (!buyPears(amount, location)){
                           System.out.println("You dont have enough money");
                           }
                         break;
                         }
-                    case 6: { // Sell Pears
+                    case 7: { // Sell Pears
                         amount = getQuantity("pears", "sell");
-                        if (!sellPears(amount, location, NYpearinventory, LApearinventory) ) {
+                        if (!sellPears(amount, location) ) {
                           System.out.println("You dont have enough pears");
                           }
                         break;
                     }
                 }
-            }   while (choice != 7);
+            }   while (choice != 8);
         }
         System.out.println("You finished with: " + currencyFormatter(cash));
 
@@ -98,11 +105,12 @@ class TradingGame{
     public static void printMenu(){
       System.out.println("1. Print cash balance and inventory");
       System.out.println("2. Print today's prices");
-      System.out.println("3. Buy apples");
-      System.out.println("4. Sell Apples");
-      System.out.println("5. Buy pears");
-      System.out.println("6. Sell pears");
-      System.out.println("7. I am done for today");
+      System.out.println("3. Print inventory of the city.");
+      System.out.println("4. Buy apples");
+      System.out.println("5. Sell Apples");
+      System.out.println("6. Buy pears");
+      System.out.println("7. Sell pears");
+      System.out.println("8. I am done for today");
 
     }
 
@@ -131,7 +139,7 @@ class TradingGame{
       return keyboard.nextInt();
     }
 
-    public static boolean sellApples(int amount, int location, int NYappleinventory, int LAappleinventory){
+    public static boolean sellApples(int amount, int location){
         if (amount > appleInventory) {
             return false;
         }
@@ -145,43 +153,35 @@ class TradingGame{
             return true;
         }
 
-    public static boolean sellPears(int amount, int location, int NYpearinventory, int LApearinventory){
+    public static boolean sellPears(int amount, int location){
         if (amount > pearInventory) {
             return false;
         }
         cash += amount * pearPrice;
         pearInventory -= amount;
         if (location == 1){
-            if (NYpearinventory > 0){
-                NYpearinventory += amount;
-                }
+            NYpearinventory += amount;
         } else{
-            if (LApearinventory > 0){
-                LApearinventory += amount;
-                }
-            }
+            LApearinventory += amount;
+        }
             return true;
         }
 
-    public static boolean buyApples(int amount, int location, int NYappleinventory, int LAappleinventory){
+    public static boolean buyApples(int amount, int location){
         if (amount * applePrice < cash) {
             cash -= amount * applePrice;
             appleInventory += amount;
             if (location == 1){
                 if (NYappleinventory > 0){
                     NYappleinventory -= amount;
-                    if (NYappleinventory == 0){
-                        System.out.println("There are no apples left in New York.");
-
-                    }
+                } if (NYappleinventory == 0){
+                    System.out.println("There are no apples left in New York.");
                 }
             } else{
                 if (LAappleinventory > 0){
                     LAappleinventory -= amount;
-                    if (LAappleinventory == 0){
+                } if (LAappleinventory == 0){
                         System.out.println("There are no apples left in Los Angeles. ");
-
-                    }
                 }
             }
             return true;
@@ -189,7 +189,7 @@ class TradingGame{
         return false;
     }
 
-    public static boolean buyPears(int amount, int location, int NYpearinventory, int LApearinventory){
+    public static boolean buyPears(int amount, int location){
 
         if (amount * pearPrice < cash) {
             cash -= amount * pearPrice;
@@ -197,19 +197,19 @@ class TradingGame{
             if (location == 1){
                 if (NYpearinventory > 0){
                     NYpearinventory -= amount;
-                    if (NYpearinventory == 0){
-                        System.out.println("There are no pears left in New York.");
+                } if (NYpearinventory == 0){
+                    System.out.println("There are no pears left in New York.");
 
                     }
-                }
+
             } else{
                 if (LApearinventory > 0){
                     LApearinventory -= amount;
-                    if (LApearinventory == 0){
-                        System.out.println("There are no pears left in Los Angeles. ");
+                } if (LApearinventory == 0){
+                    System.out.println("There are no pears left in Los Angeles. ");
 
                     }
-                }
+
             }
             return true;
         }
