@@ -100,17 +100,68 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
-        double newPrice;
+        double crashChance = 0.01;
+        double newPrice = 0;
         double chance = Math.random();
-        if (chance > 0.5 || basePrice <= 0.5){
+        double upChance = 0;
+        if (basePrice <= 1){
+            upChance = 0.95;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 2){
+            upChance = 0.9;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 3.5){
+            upChance = 0.8;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 5){
+            upChance = 0.7;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 7.5){
+            upChance = 0.6;
+            crashChance = 0.005;
+        }
+        else if (basePrice <= 10){
+            upChance = 0.5;
+            crashChance = 0.01;
+        }
+        else if (basePrice <= 12.5){
+            upChance = 0.4;
+            crashChance = 0.05;
+        }
+        else if (basePrice <= 15){
+            upChance = 0.3;
+            crashChance = 0.075;
+        }
+        else if (basePrice <= 16.5){
+            upChance = 0.2;
+            crashChance = 0.1;
+        }
+        else if (basePrice <= 18){
+            upChance = 0.1;
+            crashChance = 0.125;
+        }
+        else if (basePrice <= 19){
+            upChance = 0.05;
+            crashChance = 0.15;
+        }
+        if (chance <= upChance || basePrice <= 0.5){
             newPrice = basePrice + (Math.random() * variation);
-            return (newPrice);
         }
-        else{
+        if (chance > upChance){
             newPrice = basePrice - (Math.random() * variation);
-            return (newPrice);
         }
-        //return (newPrice);
+        if (newPrice < 0.5){
+            newPrice = 0.5;
+        }
+        if (Math.random() <= crashChance){
+            newPrice = Math.random() * 2 + 1;
+            System.out.println("The market has crashed!");
+        }
+        return(newPrice);
     }
 
     public static int getQuantity(String product, String action){
