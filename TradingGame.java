@@ -32,8 +32,8 @@ class TradingGame{
             int amount;
             Scanner keyboard = new Scanner(System.in);
 
-            System.out.println("\nThe prices for New York are $"+NYapplePrice+" for apples and $"+NYpearPrice+" for pears.");
-            System.out.println("The prices in Los Angeles are $"+LAapplePrice+" for apples and $"+LApearPrice+" for pears.\n");
+            System.out.println("\nThe prices for New York are "+currencyFormatter(NYapplePrice)+" for apples and "+currencyFormatter(NYpearPrice)+" for pears.");
+            System.out.println("The prices in Los Angeles are "+currencyFormatter(LAapplePrice)+" for apples and "+currencyFormatter(LApearPrice)+" for pears.\n");
             System.out.println("There are "+NYappleinventory+" apples and "+NYpearinventory+" pears in New York.");
             System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears in Los Angeles.\n");
             System.out.print("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
@@ -53,47 +53,61 @@ class TradingGame{
                 choice = getChoice();
                 switch (choice){
                     case 1: // Print cash balance and inventory
-                        System.out.println("Cash: " + currencyFormatter(cash));
+                        System.out.println("\nCash: " + currencyFormatter(cash));
                         System.out.println("Apple inventory: " + appleInventory);
-                        System.out.println("Pear inventory: " + pearInventory);
+                        System.out.println("Pear inventory: " + pearInventory+ "\n");
 
                         break;
                     case 2: //Print today's prices
-                        System.out.println("The price of apples is: " +
+                        System.out.println("\nThe price of apples is: " +
                         currencyFormatter(applePrice));
                         System.out.println("The price of pears is: " +
-                        currencyFormatter(pearPrice));
+                        currencyFormatter(pearPrice)+"\n");
                         break;
                     case 3: //Print inventory of current city
                         if (location == 1){
-                            System.out.println("There are "+NYappleinventory+" apples and "+NYpearinventory+" pears here in New York.");
+                            System.out.println("\nThere are "+NYappleinventory+" apples and "+NYpearinventory+" pears here in New York.\n");
                         } else{
-                            System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears here in Los Angeles.");
+                            System.out.println("\nThere are "+LAappleinventory+" apples and "+LApearinventory+" pears here in Los Angeles.\n");
                         }
                         break;
                     case 4: //Buy apples
+                        if (location == 1){
+                            System.out.println("\nThere are "+NYappleinventory+" apples here in New York for "+currencyFormatter(applePrice)+" each.");
+                        } else{
+                            System.out.println("\nThere are "+LAappleinventory+" apples here in Los Angeles for "+currencyFormatter(applePrice)+" each.");
+                        }
+                        System.out.println("You have "+currencyFormatter(cash));
                         amount = getQuantity("apples", "buy");
                         if (!buyApples(amount, location)) {
-                            System.out.println("You don't have enough money.");
+                            System.out.println("\nYou don't have enough money.\n");
                         }
                         break;
                     case 5: // Sell apples
+                        System.out.println("\nYou have "+appleInventory+" apples that you can sell for "+currencyFormatter(applePrice)+" each.");
                         amount = getQuantity("apples", "sell");
                         if (!sellApples(amount, location)){
-                            System.out.println("You don't have enough apples.");
+                            System.out.println("\nYou don't have enough apples.\n");
                         }
                         break;
                     case 6: { // Buy buyPears
+                        if (location == 1){
+                            System.out.println("\nThere are "+NYpearinventory+" pears here in New York for "+currencyFormatter(pearPrice)+" each.");
+                        } else{
+                            System.out.println("\nThere are "+LApearinventory+" pears here in Los Angeles for "+currencyFormatter(pearPrice)+" each.");
+                        }
+                        System.out.println("You have "+currencyFormatter(cash));
                         amount = getQuantity("pears", "buy");
                         if (!buyPears(amount, location)){
-                          System.out.println("You dont have enough money");
+                          System.out.println("\nYou don't have enough money\n");
                           }
                         break;
                         }
                     case 7: { // Sell Pears
+                        System.out.println("\nYou have "+pearInventory+" pears that you can sell for "+currencyFormatter(pearPrice)+" each.");
                         amount = getQuantity("pears", "sell");
                         if (!sellPears(amount, location) ) {
-                          System.out.println("You dont have enough pears");
+                          System.out.println("\nYou dont have enough pears\n");
                           }
                         break;
                     }
@@ -136,10 +150,10 @@ class TradingGame{
     }
 
     public static int getQuantity(String product, String action){
-      System.out.print("How many " + product + " do you want to " + action + "? ");
-      Scanner keyboard = new Scanner(System.in);
-      return keyboard.nextInt();
-    }
+        System.out.print("\nHow many " + product + " do you want to " + action + "? ");
+        Scanner keyboard = new Scanner(System.in);
+        return keyboard.nextInt();
+        }
 
     public static boolean sellApples(int amount, int location){
         if (amount > appleInventory) {
