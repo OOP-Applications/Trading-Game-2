@@ -9,12 +9,12 @@ class TradingGame{
     static final double INITIAL_CASH = 100;
 
     static double cash = INITIAL_CASH;
-    static int appleInventory = 0;
-    static int pearInventory = 0;
+    static double appleInventory = 0;
+    static double pearInventory = 0;
     static double applePrice, pearPrice;
 
     static final Hashtable<String, Double> prices = new Hashtable<String, Double> ();
-    static final Hashtable<String, Integer> inventories = new Hashtable<String, Integer> ();
+    static final Hashtable<String, Double> inventories = new Hashtable<String, Double> ();
 
 
     public static void main(String[] args){
@@ -23,8 +23,8 @@ class TradingGame{
             pearPrice = computePrice(BASE_PRICE, VARIATION);
             prices.put("apples", applePrice);
             prices.put("pears", pearPrice);
-            inventories.put("apples", appleInventory)
-            inventories.put("pears", pearInventory)
+            inventories.put("apples", appleInventory);
+            inventories.put("pears", pearInventory);
             System.out.println("Day: " + day + " out of 10");
             int choice;
             int amount;
@@ -34,8 +34,8 @@ class TradingGame{
                 switch (choice){
                     case 1: // Print cash balance and inventory
                         System.out.println("Cash: " + currencyFormatter(cash));
-                        System.out.println("Apple inventory: " + appleInventory);
-                        System.out.println("Pear inventory: " + pearInventory);
+                        System.out.println("Apple inventory: " + inventories.get("apples"));
+                        System.out.println("Pear inventory: " + inventories.get("pears"));
 
                         break;
                     case 2: //Print today's prices
@@ -46,26 +46,26 @@ class TradingGame{
                         break;
                     case 3: //Buy apples
                         amount = getQuantity("apples", "buy");
-                        if (buyFruits(amount, "apples", appleInventory)) {
+                        if (buyFruits(amount, "apples")) {
                             System.out.println("You don't have enough money.");
                         }
                         break;
                     case 4: // Sell apples
                         amount = getQuantity("apples", "sell");
-                        if (!sellFruits(amount, "apples", appleInventory)){
+                        if (!sellFruits(amount, "apples")){
                             System.out.println("You don't have enough apples.");
                         }
                         break;
                     case 5: { // Buy Pears
                         amount = getQuantity("pears", "buy");
-                        if (!buyFruits(amount, "pears", pearInventory)){
+                        if (!buyFruits(amount, "pears")){
                           System.out.println("You dont have enough money");
                           }
                         break;
                         }
                     case 6: { // Sell Pears
                         amount = getQuantity("pears", "sell");
-                        if (!sellFruits(amount, "pears", pearInventory)){
+                        if (!sellFruits(amount, "pears")){
                           System.out.println("You dont have enough pears");
                           }
                         break;
@@ -112,21 +112,25 @@ class TradingGame{
       Scanner keyboard = new Scanner(System.in);
       return keyboard.nextInt();
     }
-    public static boolean sellFruits(int amount, String fruit){
+    public static boolean sellFruits(double amount, String fruit){
         double price = prices.get(fruit);
+        double inventory = inventories.get(fruit);
         if (amount > inventory) {
             return false;
         }
         cash += amount * price;
         inventory -= amount;
+        inventories.put(fruit, inventory);
         return true;
     }
-    public static boolean buyFruits(int amount, String fruit){
+    public static boolean buyFruits(double amount, String fruit){
         double price = prices.get(fruit);
+        double inventory = inventories.get(fruit);
         if (amount * price < cash) {
             cash -= amount * price;
 
-            inventories.get(fruit) += amount;
+            inventory += amount;
+            inventories.put(fruit, inventory);
             return true;
         }
         return false;
