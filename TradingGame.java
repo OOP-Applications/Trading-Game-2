@@ -193,8 +193,8 @@ class TradingGame{
     }
 
     public static boolean buyApples(int amount){
-        if (amount * applePrice <= cash) {
-            cash -= amount * applePrice;
+        if (amount * currentApplePrice <= cash) {
+            cash -= amount * currentApplePrice;
             appleInventory += amount;
             return true;
         }
@@ -202,8 +202,8 @@ class TradingGame{
     }
 
     public static boolean buyPears(int amount){
-        if (amount * pearPrice <= cash) {
-            cash -= amount * pearPrice;
+        if (amount * currentPearPrice <= cash) {
+            cash -= amount * currentPearPrice;
             pearInventory += amount;
             return true;
         }
