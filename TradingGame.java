@@ -1,4 +1,4 @@
-   import java.text.*;
+import java.text.*;
 import java.util.*;
 
 class TradingGame{
@@ -11,14 +11,16 @@ class TradingGame{
     static double cash = INITIAL_CASH;
     static int appleInventory = 0;
     static int pearInventory = 0;
-    static double applePrice, pearPrice;
+    static double currentApplePrice, currentPearPrice;
 
     static final Hashtable<String, Integer> prices = new Hashtable<String, Integer> ();
 
     public static void main(String[] args){
+        currentApplePrice = BASE_PRICE;
+        currentPearPrice = BASE_PRICE;
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
-            applePrice = computePrice(BASE_PRICE, VARIATION);
-            pearPrice = computePrice(BASE_PRICE, VARIATION);
+            currentApplePrice = computePrice(currentApplePrice, VARIATION);
+            currentPearPrice = computePrice(currentPearPrice, VARIATION);
             System.out.println("Day: " + day + " out of 10");
             int choice;
             int amount;
@@ -34,9 +36,9 @@ class TradingGame{
                         break;
                     case 2: //Print today's prices
                         System.out.println("The price of apples is: " +
-                        currencyFormatter(applePrice));
+                        currencyFormatter(currentApplePrice));
                         System.out.println("The price of pears is: " +
-                        currencyFormatter(pearPrice));
+                        currencyFormatter(currentPearPrice));
                         break;
                     case 3: //Buy apples
                         amount = getQuantity("apples", "buy");
@@ -98,15 +100,72 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
+        double crashChance = 0.01;
         double newPrice = 0;
         double chance = Math.random();
-        if (chance > 0.5){
+        double upChance = 0;
+        if (basePrice <= 1){
+            upChance = 0.95;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 2){
+            upChance = 0.9;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 3.5){
+            upChance = 0.8;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 5){
+            upChance = 0.7;
+            crashChance = 0.00;
+        }
+        else if (basePrice <= 7.5){
+            upChance = 0.6;
+            crashChance = 0.005;
+        }
+        else if (basePrice <= 10){
+            upChance = 0.5;
+            crashChance = 0.01;
+        }
+        else if (basePrice <= 12.5){
+            upChance = 0.4;
+            crashChance = 0.05;
+        }
+        else if (basePrice <= 15){
+            upChance = 0.3;
+            crashChance = 0.075;
+        }
+        else if (basePrice <= 16.5){
+            upChance = 0.2;
+            crashChance = 0.1;
+        }
+        else if (basePrice <= 18){
+            upChance = 0.1;
+            crashChance = 0.125;
+        }
+        else if (basePrice <= 19){
+            upChance = 0.05;
+            crashChance = 0.15;
+        }
+        else if (basePrice > 19){
+            upChance = 0.01;
+            crashChance = 0.3;
+        }
+        if (chance <= upChance || basePrice <= 0.5){
             newPrice = basePrice + (Math.random() * variation);
         }
-        if (chance <= 0.5){
+        if (chance > upChance){
             newPrice = basePrice - (Math.random() * variation);
         }
-        return (newPrice);
+        if (newPrice < 0.5){
+            newPrice = 0.5;
+        }
+        if (Math.random() <= crashChance){
+            newPrice = Math.random() * 2 + 1;
+            System.out.println("The market has crashed!");
+        }
+        return(newPrice);
     }
 
     public static int getQuantity(String product, String action){
@@ -119,7 +178,7 @@ class TradingGame{
         if (amount > appleInventory) {
             return false;
         }
-        cash += amount * applePrice;
+        cash += amount * currentApplePrice;
         appleInventory -= amount;
         return true;
     }
@@ -128,7 +187,7 @@ class TradingGame{
         if (amount > pearInventory) {
             return false;
         }
-        cash += amount * pearPrice;
+        cash += amount * currentPearPrice;
         pearInventory -= amount;
         return true;
     }
