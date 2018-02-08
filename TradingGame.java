@@ -202,7 +202,6 @@ class TradingGame{
     }
 
     public static boolean buyPears(int amount){
-
         if (amount * pearPrice <= cash) {
             cash -= amount * pearPrice;
             pearInventory += amount;
