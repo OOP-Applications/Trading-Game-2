@@ -1,5 +1,8 @@
 import java.text.*;
 import java.util.*;
+import java.util.ArrayList;
+import java.awt.*;
+
 
 class TradingGame{
 
@@ -17,6 +20,11 @@ class TradingGame{
     static int NYpearinventory = (int) (20 + (Math.random() * 10));
     static int LAappleinventory = (int) (20 + (Math.random() * 10));
     static int LApearinventory = (int) (20 + (Math.random() * 10));
+
+    static List<Double> NYappleprices = new ArrayList<>();
+    static List<Double> LAappleprices = new ArrayList<>();
+    static List<Double> NYpearprices = new ArrayList<>();
+    static List<Double> LApearprices = new ArrayList<>();
 
 
 
@@ -43,10 +51,15 @@ class TradingGame{
             if (location == 1){
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
+                NYappleprices.add(applePrice);
+                NYpearprices.add(pearPrice);
+
             }
             else{
                 applePrice = LAapplePrice;
                 pearPrice = LApearPrice;
+                LApearprices.add(pearPrice);
+                LAappleprices.add(applePrice);
             }
             do{
                 printMenu();
@@ -114,7 +127,14 @@ class TradingGame{
                 }
             }while (choice != 8);
         }
+        /*
         System.out.println("You finished with: " + currencyFormatter(cash));
+        System.out.println("NY Apple Prices: "+NYappleprices);
+        System.out.println("NY Pear Prices: "+NYpearprices);
+        System.out.println("LA Apple Prices: "+LAappleprices);
+        System.out.println("LA Pear Prices: "+LApearprices);
+        */
+        
 
     }
 
