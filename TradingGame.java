@@ -12,20 +12,25 @@ class TradingGame{
     static int appleInventory = 0;
     static int pearInventory = 0;
     static double applePrice, pearPrice;
-    static final ArrayList<String> fruitlist = new ArrayList<String> ();
+
     static final Hashtable<String, Double> prices = new Hashtable<String, Double> ();
     static final Hashtable<String, Integer> inventories = new Hashtable<String, Integer> ();
 
 
     public static void main(String[] args){
+        List<String> fruitlist = new ArrayList<>();
+        fruitlist.add("pear");
+        fruitlist.add("apple");
+        inventories.put("apple", appleInventory);
+        inventories.put("pear", pearInventory);
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
-            applePrice = computePrice(BASE_PRICE, VARIATION);
-            pearPrice = computePrice(BASE_PRICE, VARIATION);
-            prices.put("apple", applePrice);
-            prices.put("pear", pearPrice);
-            inventories.put("apple", appleInventory);
-            inventories.put("pear", pearInventory);
-            fruitlist.asList("apple", "pear");
+            int listlen = fruitlist.size();
+            for (int i = 0; i < listlen; i++){
+              String fruiter = fruitlist.get(i);
+              prices.put(fruiter, computePrice(BASE_PRICE, VARIATION));
+              inventories.put(fruiter, inventories.get(fruiter));
+              i += 1;
+            }
             System.out.println("Day: " + day + " out of 10");
             int choice;
             int amount;
@@ -40,42 +45,61 @@ class TradingGame{
 
                         break;
                     case 2: //Print today's prices
+                      for (int day = 1; day <= NUMBER_OF_DAYS; day++){
                         System.out.println("The price of apples is: " +
-                        currencyFormatter(applePrice));
+                        currencyFormatter(prices.get("apple")));
+                      }
+                        System.out.println("The price of apples is: " +
+                        currencyFormatter(prices.get("apple")));
                         System.out.println("The price of pears is: " +
-                        currencyFormatter(pearPrice));
+                        currencyFormatter(prices.get("pear")));
                         break;
                     case 3: //Buy Fruit
-                        amount = getQuantity("apples", "buy");
-                        if (!buyFruits(amount, "apples")) {
+                        System.out.println("What fruit do you want to buy?");
+                        System.out.println("These are the available fruits " + fruitlist);
+                        Scanner buykeyboard = new Scanner(System.in);
+                        String buyfruit = buykeyboard.nextLine();
+                        amount = getQuantity(buyfruit, "buy");
+                        if (!buyFruits(amount, buyfruit)) {
                             System.out.println("You don't have enough money.");
                         }
                         break;
                     case 4: // Sell Fruit
                         System.out.println("What fruit do you want to sell?");
                         System.out.println("These are the available fruits " + fruitlist);
-                        Scanner keyboard2 = new Scanner(System.in);
-                        String fruit = keyboard2.nextLine();
-                        amount = getQuantity(fruit, "sell");
-                        if (!sellFruits(amount, fruit)){
-                            System.out.println("You don't have enough " + fruit);
+                        Scanner sellkeyboard = new Scanner(System.in);
+                        String sellfruit = sellkeyboard.nextLine();
+                        amount = getQuantity(sellfruit, "sell");
+                        if (!sellFruits(amount, sellfruit)){
+                            System.out.println("You don't have enough " + sellfruit);
                         }
                         break;
-                    }
-                }
-            }   while (choice != 5);
-        }
-        System.out.println("You finished with: " + currencyFormatter(cash));
+                    case 5:
+                        System.out.println("What fruit do you want to add?");
+                        System.out.println("These fruits are already being sold " + fruitlist);
+                        Scanner addkeyboard = new Scanner(System.in);
+                        String newfruit = addkeyboard.nextLine();
+                        fruitlist.add(newfruit);
 
+
+                }
+            }
+            while (choice != 6);
+        }
+
+
+        System.out.println("You finished with: " + currencyFormatter(cash));
     }
+
+
 
     public static void printMenu(){
       System.out.println("1. Print cash balance and inventory");
       System.out.println("2. Print today's prices");
       System.out.println("3. Buy Fruit");
-      System.out.println("4. Sell Apples");
-      System.out.println("5. I am done for today");
-
+      System.out.println("4. Sell Fruit");
+      System.out.println("5. Add Fruit");
+      System.out.println("6. I am done for today");
     }
 
     public static int getChoice(){
@@ -84,7 +108,7 @@ class TradingGame{
         do {
             System.out.print("Your choice: ");
             choice = keyboard.nextInt();
-        } while (choice > 5 || choice < 1);
+        } while (choice > 6 || choice < 1);
         return choice;
     }
 
