@@ -9,8 +9,6 @@ class TradingGame{
     static final double INITIAL_CASH = 100;
 
     static double cash = INITIAL_CASH;
-    static int appleInventory = 0;
-    static int pearInventory = 0;
     static double applePrice, pearPrice;
 
     static final Hashtable<String, Double> prices = new Hashtable<String, Double> ();
@@ -21,15 +19,14 @@ class TradingGame{
         List<String> fruitlist = new ArrayList<>();
         fruitlist.add("pear");
         fruitlist.add("apple");
-        inventories.put("apple", appleInventory);
-        inventories.put("pear", pearInventory);
+        inventories.put("apple", 0);
+        inventories.put("pear", 0);
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
             int listlen = fruitlist.size();
             for (int i = 0; i < listlen; i++){
               String fruiter = fruitlist.get(i);
-              prices.put(fruiter, computePrice(BASE_PRICE, VARIATION));
-              inventories.put(fruiter, inventories.get(fruiter));
-              i += 1;
+              double priceloop2 = computePrice(BASE_PRICE, VARIATION);
+              prices.put(fruiter, priceloop2);
             }
             System.out.println("Day: " + day + " out of 10");
             int choice;
@@ -39,20 +36,24 @@ class TradingGame{
                 choice = getChoice();
                 switch (choice){
                     case 1: // Print cash balance and inventory
+                        int listlen3 = fruitlist.size();
+                        for (int i = 0; i < listlen2; i++){
+                            String fruiter3 = fruitlist.get(i);
+                            String priceloop3 = currencyFormatter(prices.get(fruiter3));
+                            System.out.println(fruiter3 + "inventory: " + inventories.get(fruiter3));
+                        }
                         System.out.println("Cash: " + currencyFormatter(cash));
                         System.out.println("Apple inventory: " + inventories.get("apple"));
                         System.out.println("Pear inventory: " + inventories.get("pear"));
 
                         break;
                     case 2: //Print today's prices
-                      for (int day = 1; day <= NUMBER_OF_DAYS; day++){
-                        System.out.println("The price of apples is: " +
-                        currencyFormatter(prices.get("apple")));
-                      }
-                        System.out.println("The price of apples is: " +
-                        currencyFormatter(prices.get("apple")));
-                        System.out.println("The price of pears is: " +
-                        currencyFormatter(prices.get("pear")));
+                        int listlen2 = fruitlist.size();
+                        for (int i = 0; i < listlen2; i++){
+                            String fruiter2 = fruitlist.get(i);
+                            String priceloop = currencyFormatter(prices.get(fruiter2));
+                            System.out.println("The price of " + fruiter2 + " is: " + priceloop);
+                        }
                         break;
                     case 3: //Buy Fruit
                         System.out.println("What fruit do you want to buy?");
@@ -63,6 +64,9 @@ class TradingGame{
                         if (!buyFruits(amount, buyfruit)) {
                             System.out.println("You don't have enough money.");
                         }
+                        int add = inventories.get(buyfruit);
+                        add -= amount;
+                        inventories.put(buyfruit, add);
                         break;
                     case 4: // Sell Fruit
                         System.out.println("What fruit do you want to sell?");
@@ -73,14 +77,17 @@ class TradingGame{
                         if (!sellFruits(amount, sellfruit)){
                             System.out.println("You don't have enough " + sellfruit);
                         }
+                        int sub = inventories.get(sellfruit);
+                        sub -= amount;
+                        inventories.put(sellfruit, sub);
                         break;
-                    case 5:
+                    case 5: // Add Fruit
                         System.out.println("What fruit do you want to add?");
                         System.out.println("These fruits are already being sold " + fruitlist);
                         Scanner addkeyboard = new Scanner(System.in);
                         String newfruit = addkeyboard.nextLine();
                         fruitlist.add(newfruit);
-
+                        inventories.put(newfruit, 0);
 
                 }
             }
@@ -98,7 +105,7 @@ class TradingGame{
       System.out.println("2. Print today's prices");
       System.out.println("3. Buy Fruit");
       System.out.println("4. Sell Fruit");
-      System.out.println("5. Add Fruit");
+      System.out.println("5. Add Fruit (WARNING: THIS WILL END THE CURRENT DAY! BEWARE!)");
       System.out.println("6. I am done for today");
     }
 
