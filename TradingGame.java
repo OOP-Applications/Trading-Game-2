@@ -36,46 +36,39 @@ class TradingGame{
             System.out.println("The prices in Los Angeles are "+currencyFormatter(LAapplePrice)+" for apples and "+currencyFormatter(LApearPrice)+" for pears.\n");
             System.out.println("There are "+NYappleinventory+" apples and "+NYpearinventory+" pears in New York.");
             System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears in Los Angeles.\n");
-            System.out.println("There is a $15.00 plus a $0.20 per fruit fee for travel. Your first location is free.");
+            System.out.println("There is a $0.25 travel fee per apple.");
             System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
-            int location;
+            int location = keyboard.nextInt();
 
-            if(applePrice == NYapplePrice){
-              location = keyboard.nextInt();
-              if (location == 1){
-                  applePrice = NYapplePrice;
-                  pearPrice = NYpearPrice;
-              } else {
-                int fruit = appleInventory + pearInventory;
-                double fee = 15.00 + (fruit * 0.2);
+
+            if (location == 1){
+              if (applePrice == LAapplePrice){
+                double fee = (appleInventory + pearInventory) * 0.25;
                 cash = cash - fee;
-                System.out.println("Your balance is:" + cash);
-                applePrice = LAapplePrice;
-                pearPrice = LApearPrice;
-              }
-            } else if (applePrice == LAapplePrice){
-              location = keyboard.nextInt();
-              if (location == 2){
-                applePrice = LAapplePrice;
-                pearPrice = LApearPrice;
-              } else {
-                int fruit = appleInventory + pearInventory;
-                double fee = 15.00 + (fruit * 0.2);
-                cash = cash - fee;
-                System.out.println("Your balance is:" + cash);
+                System.out.println("You have:" + cash);
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
-              }
-            } else {
-              location = keyboard.nextInt();
-              if (location == 1){
-                  applePrice = NYapplePrice;
-                  pearPrice = NYpearPrice;
               } else {
-                applePrice = LAapplePrice;
-                pearPrice = LApearPrice;
+              applePrice = NYapplePrice;
+              pearPrice = NYpearPrice;
+            }
+          } else if (location == 2){
+            if (applePrice == NYapplePrice){
+              double fee = (appleInventory + pearInventory) * 0.25;
+              cash = cash - fee;
+              System.out.println("You have:" + cash);
+              applePrice = LAapplePrice;
+              pearPrice = LApearPrice;
+            } else {
+              applePrice = LAapplePrice;
+              pearPrice = LApearPrice;
               }
             }
+
+
+
+
+
 
 
 
