@@ -37,7 +37,7 @@ class TradingGame{
                 switch (choice){
                     case 1: // Print cash balance and inventory
                         int listlen3 = fruitlist.size();
-                        for (int i = 0; i < listlen2; i++){
+                        for (int i = 0; i < listlen3; i++){
                             String fruiter3 = fruitlist.get(i);
                             String priceloop3 = currencyFormatter(prices.get(fruiter3));
                             System.out.println(fruiter3 + "inventory: " + inventories.get(fruiter3));
@@ -65,7 +65,7 @@ class TradingGame{
                             System.out.println("You don't have enough money.");
                         }
                         int add = inventories.get(buyfruit);
-                        add -= amount;
+                        add += amount;
                         inventories.put(buyfruit, add);
                         break;
                     case 4: // Sell Fruit
@@ -88,6 +88,7 @@ class TradingGame{
                         String newfruit = addkeyboard.nextLine();
                         fruitlist.add(newfruit);
                         inventories.put(newfruit, 0);
+                        prices.put(newfruit, computePrice(BASE_PRICE, VARIATION));
 
                 }
             }
