@@ -43,8 +43,6 @@ class TradingGame{
                             System.out.println(fruiter3 + "inventory: " + inventories.get(fruiter3));
                         }
                         System.out.println("Cash: " + currencyFormatter(cash));
-                        System.out.println("Apple inventory: " + inventories.get("apple"));
-                        System.out.println("Pear inventory: " + inventories.get("pear"));
 
                         break;
                     case 2: //Print today's prices
@@ -65,7 +63,7 @@ class TradingGame{
                             System.out.println("You don't have enough money.");
                         }
                         int add = inventories.get(buyfruit);
-                        add += amount;
+                        System.out.println(add);
                         inventories.put(buyfruit, add);
                         break;
                     case 4: // Sell Fruit
@@ -78,7 +76,7 @@ class TradingGame{
                             System.out.println("You don't have enough " + sellfruit);
                         }
                         int sub = inventories.get(sellfruit);
-                        sub -= amount;
+                    
                         inventories.put(sellfruit, sub);
                         break;
                     case 5: // Add Fruit
