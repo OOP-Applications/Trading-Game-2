@@ -9,7 +9,7 @@ class TradingGame{
     static final double INITIAL_CASH = 100;
 
     static double cash = INITIAL_CASH;
-    
+
 
     static final Hashtable<String, Double> prices = new Hashtable<String, Double> ();
     static final Hashtable<String, Integer> inventories = new Hashtable<String, Integer> ();
@@ -103,7 +103,7 @@ class TradingGame{
       System.out.println("2. Print today's prices");
       System.out.println("3. Buy Fruit");
       System.out.println("4. Sell Fruit");
-      System.out.println("5. Add Fruit (WARNING: THIS WILL END THE CURRENT DAY! BEWARE!)");
+      System.out.println("5. Add Fruit");
       System.out.println("6. I am done for today");
     }
 
