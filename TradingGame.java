@@ -52,16 +52,16 @@ class TradingGame{
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
               } else {
-              applePrice = NYapplePrice;
-              pearPrice = NYpearPrice;
-            }
-          } else if (location == 2){
-            if (applePrice == NYapplePrice){
-              double fee = (appleInventory + pearInventory) * 0.25;
-              cash = cash - fee;
-              System.out.println("You have:" + cash);
-              applePrice = LAapplePrice;
-              pearPrice = LApearPrice;
+                applePrice = NYapplePrice;
+                pearPrice = NYpearPrice;
+              }
+            } else if (location == 2){
+              if (applePrice == NYapplePrice){
+                double fee = (appleInventory + pearInventory) * 0.25;
+                cash = cash - fee;
+                System.out.println("You have:" + cash);
+                applePrice = LAapplePrice;
+                pearPrice = LApearPrice;
             } else {
               applePrice = LAapplePrice;
               pearPrice = LApearPrice;
