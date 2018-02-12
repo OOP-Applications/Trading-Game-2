@@ -63,7 +63,6 @@ class TradingGame{
                             System.out.println("You don't have enough money.");
                         }
                         int add = inventories.get(buyfruit);
-                        System.out.println(add);
                         inventories.put(buyfruit, add);
                         break;
                     case 4: // Sell Fruit
@@ -76,18 +75,25 @@ class TradingGame{
                             System.out.println("You don't have enough " + sellfruit);
                         }
                         int sub = inventories.get(sellfruit);
-                    
+
                         inventories.put(sellfruit, sub);
                         break;
                     case 5: // Add Fruit
-                        System.out.println("What fruit do you want to add?");
-                        System.out.println("These fruits are already being sold " + fruitlist);
-                        Scanner addkeyboard = new Scanner(System.in);
-                        String newfruit = addkeyboard.nextLine();
-                        fruitlist.add(newfruit);
-                        inventories.put(newfruit, 0);
-                        prices.put(newfruit, computePrice(BASE_PRICE, VARIATION));
-
+                        int listlen4 = fruitlist.size();
+                        if (listlen4 == 10){
+                            System.out.println("There are too many fruits in the market.");
+                            break;
+                        }
+                        else{
+                            System.out.println("What fruit do you want to add?");
+                            System.out.println("These fruits are already being sold " + fruitlist);
+                            Scanner addkeyboard = new Scanner(System.in);
+                            String newfruit = addkeyboard.nextLine();
+                            fruitlist.add(newfruit);
+                            inventories.put(newfruit, 0);
+                            prices.put(newfruit, computePrice(BASE_PRICE, VARIATION));
+                            cash -= 10;
+                        }
                 }
             }
             while (choice != 6);
@@ -104,7 +110,7 @@ class TradingGame{
       System.out.println("2. Print today's prices");
       System.out.println("3. Buy Fruit");
       System.out.println("4. Sell Fruit");
-      System.out.println("5. Add Fruit (WARNING: THIS WILL END THE CURRENT DAY! BEWARE!)");
+      System.out.println("5. Add Fruit");
       System.out.println("6. I am done for today");
     }
 
