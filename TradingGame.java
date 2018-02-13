@@ -178,10 +178,28 @@ class TradingGame{
     }
 
     public static double computePrice(double basePrice, double variation){
+        /*
+        This function is used to vary the price fruit.
+
+        Input:
+            basePrice(double) - The price from the previous day which will be
+            used as the price that is going to be changed.
+            variation(double) - The variation represents the maximum amount the
+            price can change form the previous day.
+
+        Output:
+            newPrice(double) - The new price once the variation has been added
+            or subtracted.
+        */
         double crashChance = 0.01;
         double newPrice = 0;
         double chance = Math.random();
         double upChance = 0;
+        /*The string of if statements comparing basePrice to an integer allows
+        the prices to have higher and lower chances of going up based on how
+        high the previous day's price was, as well as implement a chance for the
+        market to crash once prices get very very high.
+        */
         if (basePrice <= 1){
             upChance = 0.95;
             crashChance = 0.00;
@@ -230,6 +248,9 @@ class TradingGame{
             upChance = 0.01;
             crashChance = 0.3;
         }
+        /* The following if statements calculate newPrice by adding or
+        subracting a random variation.
+        */
         if (chance <= upChance || basePrice <= 0.5){
             newPrice = basePrice + (Math.random() * variation);
         }
@@ -239,6 +260,7 @@ class TradingGame{
         if (newPrice < 0.5){
             newPrice = 0.5;
         }
+        // The market crash drops the price to between $1 and $3.
         if (Math.random() <= crashChance){
             newPrice = Math.random() * 2 + 1;
             System.out.println("The market has crashed!");
