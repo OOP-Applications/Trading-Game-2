@@ -1,7 +1,5 @@
 import java.text.*;
 import java.util.*;
-import java.util.ArrayList;
-import java.awt.*;
 
 
 class TradingGame{
@@ -127,14 +125,16 @@ class TradingGame{
                 }
             }while (choice != 8);
         }
-        /*
+
         System.out.println("You finished with: " + currencyFormatter(cash));
+
         System.out.println("NY Apple Prices: "+NYappleprices);
+        /*
         System.out.println("NY Pear Prices: "+NYpearprices);
         System.out.println("LA Apple Prices: "+LAappleprices);
         System.out.println("LA Pear Prices: "+LApearprices);
         */
-        
+
 
     }
 
