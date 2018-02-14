@@ -7,6 +7,11 @@ import javafx.stage.Stage;
 
 public class GraphPanel extends Application{
 
+    public GraphPanel(){
+        List<Double> list = new ArrayList<>();
+        list = TradingGame.NYappleprices;
+    }
+
     @Override public void start(Stage stage){
 
         stage.setTitle("Trading Game Graph");
@@ -18,20 +23,20 @@ public class GraphPanel extends Application{
         final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
         lineChart.setTitle("Trading Game Graph");
 
-        final XYChart.Series series = new XYChart.Series<>();
+        final XYChart.Series<Number,Number> series = new XYChart.Series<>();
 
         series.setName("New York Apple Prices");
 
-        series.getData().add(new XYChart.Data<>(1, 20));
-        series.getData().add(new XYChart.Data<>(2, 14));
-        series.getData().add(new XYChart.Data<>(3, 15));
-        series.getData().add(new XYChart.Data<>(4, 24));
-        series.getData().add(new XYChart.Data<>(5, 34));
-        series.getData().add(new XYChart.Data<>(6, 36));
-        series.getData().add(new XYChart.Data<>(7, 22));
-        series.getData().add(new XYChart.Data<>(8, 45));
-        series.getData().add(new XYChart.Data<>(9, 43));
-        series.getData().add(new XYChart.Data<>(10, 17));
+        series.getData().add(new XYChart.Data<>(1, list.get(0)));
+        series.getData().add(new XYChart.Data<>(2, list.get(1)));
+        series.getData().add(new XYChart.Data<>(3, list.get(2)));
+        series.getData().add(new XYChart.Data<>(4, list.get(3)));
+        series.getData().add(new XYChart.Data<>(5, list.get(4)));
+        series.getData().add(new XYChart.Data<>(6, list.get(5)));
+        series.getData().add(new XYChart.Data<>(7, list.get(6)));
+        series.getData().add(new XYChart.Data<>(8, list.get(7)));
+        series.getData().add(new XYChart.Data<>(9, list.get(8)));
+        series.getData().add(new XYChart.Data<>(10, list.get(9)));
 
         Scene scene = new Scene(lineChart, 800, 600);
 
@@ -40,11 +45,9 @@ public class GraphPanel extends Application{
         stage.setScene(scene);
         stage.show();
     }
-    /*
-    public GraphPanel(){
-        launch();
-    }
-    */
+
+
+
     public static void main(String[] args) {
         launch(args);
     }

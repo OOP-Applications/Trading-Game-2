@@ -129,6 +129,7 @@ class TradingGame{
         System.out.println("You finished with: " + currencyFormatter(cash));
 
         GraphPanel graph = new GraphPanel();
+        graph.start();
 
 
     }
