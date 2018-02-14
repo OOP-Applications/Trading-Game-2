@@ -54,24 +54,29 @@ class TradingGame{
                         }
                         break;
                     case 3: //Buy Fruit
-                        System.out.println("What fruit do you want to buy?");
-                        System.out.println("These are the available fruits " + fruitlist);
-                        Scanner buykeyboard = new Scanner(System.in);
-                        String buyfruit = buykeyboard.nextLine();
-                        amount = getQuantity(buyfruit, "buy");
-                        if (!buyFruits(amount, buyfruit)) {
-                            System.out.println("You don't have enough money.");
+                        while (true) {
+                          System.out.println("What fruit do you want to buy?");
+                          System.out.println("These are the available fruits " + fruitlist);
+                          Scanner buykeyboard = new Scanner(System.in);
+                          String buyfruit = buykeyboard.nextLine();
+                          amount = getQuantity(buyfruit, "buy");
+                          int listlen5 = fruitlist.size();
+                          if (checkFruits(listlen5, fruitlist, buyfruit)){
+                            if (!buyFruits(amount, buyfruit)) {
+                                System.out.println("You don't have enough money.");
+                              }
+                              int add = inventories.get(buyfruit);
+                              inventories.put(buyfruit, add);
+                              break;
+                          }
                         }
-                        int add = inventories.get(buyfruit);
-                        System.out.println(add);
-                        inventories.put(buyfruit, add);
-                        break;
                     case 4: // Sell Fruit
                         System.out.println("What fruit do you want to sell?");
                         System.out.println("These are the available fruits " + fruitlist);
                         Scanner sellkeyboard = new Scanner(System.in);
                         String sellfruit = sellkeyboard.nextLine();
                         amount = getQuantity(sellfruit, "sell");
+
                         if (!sellFruits(amount, sellfruit)){
                             System.out.println("You don't have enough " + sellfruit);
                         }
@@ -79,13 +84,22 @@ class TradingGame{
                         inventories.put(sellfruit, sub);
                         break;
                     case 5: // Add Fruit
-                        System.out.println("What fruit do you want to add?");
-                        System.out.println("These fruits are already being sold " + fruitlist);
-                        Scanner addkeyboard = new Scanner(System.in);
-                        String newfruit = addkeyboard.nextLine();
-                        fruitlist.add(newfruit);
-                        inventories.put(newfruit, 0);
-                        prices.put(newfruit, computePrice(BASE_PRICE, VARIATION));
+                        while (true){
+                          System.out.println("What fruit do you want to add?");
+                          System.out.println("These fruits are already being sold " + fruitlist);
+                          Scanner addkeyboard = new Scanner(System.in);
+                          String newfruit = addkeyboard.nextLine();
+                          int listlen5 = fruitlist.size();
+                          if (checkFruits(listlen5, fruitlist, newfruit)){
+                            fruitlist.add(newfruit);
+                            inventories.put(newfruit, 0);
+                            prices.put(newfruit, computePrice(BASE_PRICE, VARIATION));
+                            break;
+                          }
+                        }
+
+
+
 
                 }
             }
@@ -153,5 +167,18 @@ class TradingGame{
             return true;
         }
         return false;
+    }
+    public static boolean checkFruits(int listlength, List<String> list, String fruit){
+        for (int i = 0; i < listlength; i++){
+            String oldfruit = list.get(i);
+            if (fruit.equals(oldfruit)){
+              System.out.println("That fruit is already in the list");
+              return false;
+            }
+
+        }
+        return true;
+
+
     }
 }
