@@ -2,7 +2,9 @@ import java.text.*;
 import java.util.*;
 
 class TradingGame{
-
+/**
+These blocks of code generate the initial variables that will be used  throughout the game
+*/
     static final int NUMBER_OF_DAYS = 10;
     static final double BASE_PRICE = 10;
     static final double VARIATION = 5;
@@ -21,7 +23,9 @@ class TradingGame{
 
 
     static final Hashtable<String, Integer> prices = new Hashtable<String, Integer> ();
-
+/**
+This is the main method, which
+*/
     public static void main(String[] args){
         applePrice = BASE_PRICE;
         pearPrice = BASE_PRICE;
@@ -43,7 +47,9 @@ class TradingGame{
             System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
             int location = keyboard.nextInt();
 
-
+            /*
+            This section generates generates travel costs and sets prices based on which city the player has selected to travel to.
+            */
             if (location == 1){
               if (applePrice == LAapplePrice){
                 double fee = (appleInventory + pearInventory) * 0.25;
@@ -76,6 +82,9 @@ class TradingGame{
 
 
             do{
+                /**
+                This code generates a menu, then performs the appropriate action based on the selection of the player
+                */
                 printMenu();
                 choice = getChoice();
                 switch (choice){
@@ -144,7 +153,9 @@ class TradingGame{
         System.out.println("You finished with: " + currencyFormatter(cash));
 
     }
-
+/**
+Prints the menu of options for the player to select
+*/
     public static void printMenu(){
       System.out.println("1. Print cash balance and inventory");
       System.out.println("2. Print today's prices");
