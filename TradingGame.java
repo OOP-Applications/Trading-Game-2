@@ -12,6 +12,7 @@ class TradingGame{
     static int appleInventory = 0;
     static int pearInventory = 0;
     static double applePrice, pearPrice, NYapplePrice, NYpearPrice, LAapplePrice, LApearPrice;
+    static int previous = 0;
 
     static int NYappleinventory = (int) (20 + (Math.random() * 10));
     static int NYpearinventory = (int) (20 + (Math.random() * 10));
@@ -45,27 +46,33 @@ class TradingGame{
 
 
             if (location == 1){
-              if (applePrice == LAapplePrice){
+              if (previous == 2){
                 double fee = (appleInventory + pearInventory) * 0.25;
                 cash = cash - fee;
-                System.out.println("You have:" + cash);
+                String cash_string = currencyFormatter(cash);
+                System.out.println("You have:" + cash_string);
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
+                previous = 1;
               } else {
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
+                previous = 1;
               }
             } else if (location == 2){
-              if (applePrice == NYapplePrice){
+              if (previous == 1){
                 double fee = (appleInventory + pearInventory) * 0.25;
                 cash = cash - fee;
-                System.out.println("You have:" + cash);
+                String cash_string = currencyFormatter(cash);
+                System.out.println("You have:" + cash_string);
                 applePrice = LAapplePrice;
                 pearPrice = LApearPrice;
+                previous = 2;
             } else {
               applePrice = LAapplePrice;
               pearPrice = LApearPrice;
-              }
+              previous = 2;
+            }
             }
 
 
