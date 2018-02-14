@@ -128,12 +128,7 @@ class TradingGame{
 
         System.out.println("You finished with: " + currencyFormatter(cash));
 
-        System.out.println("NY Apple Prices: "+NYappleprices);
-        /*
-        System.out.println("NY Pear Prices: "+NYpearprices);
-        System.out.println("LA Apple Prices: "+LAappleprices);
-        System.out.println("LA Pear Prices: "+LApearprices);
-        */
+        GraphPanel graph = new GraphPanel();
 
 
     }
