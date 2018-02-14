@@ -1,3 +1,7 @@
+/**
+@author CS-01 class
+*/
+
 import java.text.*;
 import java.util.*;
 
@@ -154,7 +158,7 @@ This is the main method, which
 
     }
 /**
-Prints the menu of options for the player to select
+Prints the menu of options for the player to select, this accepts no inputs and outputs nothing
 */
     public static void printMenu(){
       System.out.println("1. Print cash balance and inventory");
@@ -168,7 +172,8 @@ Prints the menu of options for the player to select
 
     }
 
-    public static int getChoice(){
+    public static int getChoice(){      /* getChoice takes in the users choice. The choice will correspond to the options presented in printMenu.
+      By using a do-while loop, the prompt will always run once, and continune to run until an approate value is enterd*/
         Scanner keyboard = new Scanner(System.in);
         int choice;
         do {
@@ -178,16 +183,34 @@ Prints the menu of options for the player to select
         return choice;
     }
 
-    public static String currencyFormatter(double amount){
+    public static String currencyFormatter(double amount){ // currencyFormatter turns a given amounts of money into the appropriate formate, the way prices are noramlly displayed.
       DecimalFormat myFormatter = new DecimalFormat("$###,###.00");
       return myFormatter.format(amount);
     }
 
     public static double computePrice(double basePrice, double variation){
+        /*
+        This function is used to vary the price fruit.
+
+        Input:
+            basePrice(double) - The price from the previous day which will be
+            used as the price that is going to be changed.
+            variation(double) - The variation represents the maximum amount the
+            price can change form the previous day.
+
+        Output:
+            newPrice(double) - The new price once the variation has been added
+            or subtracted.
+        */
         double crashChance = 0.01;
         double newPrice = 0;
         double chance = Math.random();
         double upChance = 0;
+        /*The string of if statements comparing basePrice to an integer allows
+        the prices to have higher and lower chances of going up based on how
+        high the previous day's price was, as well as implement a chance for the
+        market to crash once prices get very very high.
+        */
         if (basePrice <= 1){
             upChance = 0.95;
             crashChance = 0.00;
@@ -236,6 +259,9 @@ Prints the menu of options for the player to select
             upChance = 0.01;
             crashChance = 0.3;
         }
+        /* The following if statements calculate newPrice by adding or
+        subracting a random variation.
+        */
         if (chance <= upChance || basePrice <= 0.5){
             newPrice = basePrice + (Math.random() * variation);
         }
@@ -245,6 +271,7 @@ Prints the menu of options for the player to select
         if (newPrice < 0.5){
             newPrice = 0.5;
         }
+        // The market crash drops the price to between $1 and $3.
         if (Math.random() <= crashChance){
             newPrice = Math.random() * 2 + 1;
             System.out.println("The market has crashed!");
@@ -252,13 +279,13 @@ Prints the menu of options for the player to select
         return(newPrice);
     }
 
-    public static int getQuantity(String product, String action){
+    public static int getQuantity(String product, String action){ //getQuantity asks the player for a quantity of a certain item. This method can be used for many purposes.
         System.out.print("\nHow many " + product + " do you want to " + action + "? ");
         Scanner keyboard = new Scanner(System.in);
         return keyboard.nextInt();
         }
 
-    public static boolean sellApples(int amount, int location){
+    public static boolean sellApples(int amount, int location){ // sellApples removes a given number of apples from the players inventory and gives them the appropriate amount of money. It also checks for location.
         if (amount > appleInventory) {
             return false;
         }
@@ -272,7 +299,7 @@ Prints the menu of options for the player to select
             return true;
         }
 
-    public static boolean sellPears(int amount, int location){
+    public static boolean sellPears(int amount, int location){ // sellPears removes a given number of pears from the players inventory and gives them the appropriate amount of money. It also checks for location.
         if (amount > pearInventory) {
             return false;
         }
@@ -286,7 +313,7 @@ Prints the menu of options for the player to select
             return true;
         }
 
-    public static boolean buyApples(int amount, int location){
+    public static boolean buyApples(int amount, int location){  //buyApples gives the player a cerain amount of apples and removes the appropriate amount of money from them. It also checks for location.
         if (amount * applePrice < cash) {
             cash -= amount * applePrice;
             appleInventory += amount;
@@ -308,7 +335,7 @@ Prints the menu of options for the player to select
         return false;
     }
 
-    public static boolean buyPears(int amount, int location){
+    public static boolean buyPears(int amount, int location){ //buyApples gives the player a cerain amount of apples and removes the appropriate amount of money from them. It also checks for location.
 
         if (amount * pearPrice < cash) {
             cash -= amount * pearPrice;
