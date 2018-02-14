@@ -48,22 +48,31 @@ This is the main method, which
             System.out.println("The prices in Los Angeles are "+currencyFormatter(LAapplePrice)+" for apples and "+currencyFormatter(LApearPrice)+" for pears.\n");
             System.out.println("There are "+NYappleinventory+" apples and "+NYpearinventory+" pears in New York.");
             System.out.println("There are "+LAappleinventory+" apples and "+LApearinventory+" pears in Los Angeles.\n");
-            System.out.println("There is a $0.25 travel fee per apple.");
+            System.out.println("There is a $0.25 travel fee per fruit.");
             System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
             int location = keyboard.nextInt();
 
             /*
             This section generates generates travel costs and sets prices based on which city the player has selected to travel to.
+            It also checks for the previous location and if it changes it subtracts a $0.25 cent fee per fruit in the platers inventory.
             */
             if (location == 1){
               if (previous == 2){
                 double fee = (appleInventory + pearInventory) * 0.25;
+                if (cash >= fee){
                 cash = cash - fee;
                 String cash_string = currencyFormatter(cash);
                 System.out.println("You have:" + cash_string);
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
                 previous = 1;
+              } else {
+                System.out.println("You don't have sufficient funds.");
+                applePrice = LAapplePrice;
+                pearPrice = LApearPrice;
+                location = 2;
+                previous = 2;
+              }
               } else {
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
@@ -72,12 +81,20 @@ This is the main method, which
             } else if (location == 2){
               if (previous == 1){
                 double fee = (appleInventory + pearInventory) * 0.25;
+                if (cash >= fee){
                 cash = cash - fee;
                 String cash_string = currencyFormatter(cash);
                 System.out.println("You have:" + cash_string);
                 applePrice = LAapplePrice;
                 pearPrice = LApearPrice;
                 previous = 2;
+              } else{
+                System.out.println("You don't have sufficient funds.");
+                applePrice = NYapplePrice;
+                pearPrice = NYpearPrice;
+                location = 1;
+                previous = 1;
+              }
             } else {
               applePrice = LAapplePrice;
               pearPrice = LApearPrice;
