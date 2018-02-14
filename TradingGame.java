@@ -18,6 +18,7 @@ These blocks of code generate the initial variables that will be used  throughou
     static int appleInventory = 0;
     static int pearInventory = 0;
     static double applePrice, pearPrice, NYapplePrice, NYpearPrice, LAapplePrice, LApearPrice;
+    static int previous = 0;
 
     static int NYappleinventory = (int) (20 + (Math.random() * 10));
     static int NYpearinventory = (int) (20 + (Math.random() * 10));
@@ -55,27 +56,33 @@ This is the main method, which
             This section generates generates travel costs and sets prices based on which city the player has selected to travel to.
             */
             if (location == 1){
-              if (applePrice == LAapplePrice){
+              if (previous == 2){
                 double fee = (appleInventory + pearInventory) * 0.25;
                 cash = cash - fee;
-                System.out.println("You have:" + cash);
+                String cash_string = currencyFormatter(cash);
+                System.out.println("You have:" + cash_string);
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
+                previous = 1;
               } else {
                 applePrice = NYapplePrice;
                 pearPrice = NYpearPrice;
+                previous = 1;
               }
             } else if (location == 2){
-              if (applePrice == NYapplePrice){
+              if (previous == 1){
                 double fee = (appleInventory + pearInventory) * 0.25;
                 cash = cash - fee;
-                System.out.println("You have:" + cash);
+                String cash_string = currencyFormatter(cash);
+                System.out.println("You have:" + cash_string);
                 applePrice = LAapplePrice;
                 pearPrice = LApearPrice;
+                previous = 2;
             } else {
               applePrice = LAapplePrice;
               pearPrice = LApearPrice;
-              }
+              previous = 2;
+            }
             }
 
 
