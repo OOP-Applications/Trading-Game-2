@@ -146,7 +146,7 @@ class TradingGame{
       System.out.println("5. Add Fruit");
       System.out.println("6. I am done for today");
     }
-
+    
     public static int getChoice(){
         Scanner keyboard = new Scanner(System.in);
         int choice;
