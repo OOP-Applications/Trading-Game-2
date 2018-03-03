@@ -1,7 +1,7 @@
 import java.text.*;
 import java.util.*;
 
-class TradingGame{
+class TradingGeme{
 /**
 These blocks of code generate the initial variables that will be used  throughout the game
 */
@@ -55,18 +55,18 @@ This is the main method, which
             int amount;
             Scanner keyboard = new Scanner(System.in);
             for (int i = 0; i <listlen; i++){
+                int listlen12 = fruitlist.size();
                 String fruiter2 = fruitlist.get(i);
                 List<Double> newyorkprice = NYprices.get(fruiter2);
                 List<Double> losangelesprice = LAprices.get(fruiter2);
-                double NYdailyprice = newyorkprice.get(i);
+                double NYdailyprice = newyorkprice.get(listlen12);
                 System.out.println("The price of " + fruiter2 + " in New York is " + currencyFormatter(NYdailyprice));
-                double LAdailyprice = losangelesprice.get(i);
+                double LAdailyprice = losangelesprice.get(listlen12);
                 System.out.println("The price of " + fruiter2 + " in Los Angeles is " + currencyFormatter(LAdailyprice));
                 int NYcurrentinventory = NYinventories.get(i);
                 System.out.println("There are " + NYcurrentinventory + fruiter2 + "s in New York.");
                 int LAcurrentinventory = LAinventories.get(i);
                 System.out.println("There are " + LAcurrentinventory + fruiter2 + "s in Los Angeles");
-
             }
             System.out.println("There is a $0.25 travel fee per fruit.");
             System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
@@ -174,7 +174,7 @@ This is the main method, which
                         else{
                             //Checks to make sure the user has enough money
                             amount = getQuantity(buyfruit, "buy");
-                            if (!buyFruits(amount, buyfruit, location)) {
+                            if (!buyFruits(amount, buyfruit, location, fruitlist)) {
                                 System.out.println("You don't have enough money.");
                             }
                             break;
@@ -193,7 +193,7 @@ This is the main method, which
                         else{
                             //Checks to make sure you have enough fruit to sell.
                             amount = getQuantity(sellfruit, "sell");
-                            if (!sellFruits(amount, sellfruit, location)){
+                            if (!sellFruits(amount, sellfruit, location, fruitlist)){
                                 System.out.println("You don't have enough " + sellfruit);
                             }
                             int sub = inventories.get(sellfruit);
@@ -218,8 +218,8 @@ This is the main method, which
                             inventories.put(newfruit, 0);
                             NYinventories.put(newfruit, (int) (20 + (Math.random() * 10)));
                             LAinventories.put(newfruit, (int) (20 + (Math.random() * 10)));
-                            List<String> NYnewfruitlist = new ArrayList<>();
-                            List<String> LAnewfruitlist = new ArrayList<>();
+                            List<Double> NYnewfruitlist = new ArrayList<>();
+                            List<Double> LAnewfruitlist = new ArrayList<>();
                             NYnewfruitlist.add(computePrice(BASE_PRICE, VARIATION));
                             LAnewfruitlist.add(computePrice(BASE_PRICE, VARIATION));
                             NYprices.put(newfruit, NYnewfruitlist);
@@ -365,30 +365,38 @@ Prints the menu of options for the player to select, this accepts no inputs and 
         return keyboard.nextInt();
         }
 
-    public static boolean sellFruits(int amount, String fruit, int location){
+    public static boolean sellFruits(int amount, String fruit, int location, List<String> list){
         int inventory = inventories.get(fruit);
         if (amount > inventory){
             return false;
         }
         if (location == 1){
             int NYinventory = NYinventories.get(fruit);
-            cash = cash + amount * NYPrices.get(fruit);
+            int listlen11 = list.size();
+            List<Double> newyorkprice4 = NYprices.get(fruit);
+            double NYdailyprice4 = newyorkprice4.get(listlen11);
+            cash = cash + amount * NYdailyprice4;
             inventory -= amount;
             inventories.put(fruit, inventory);
             NYinventory += amount;
             NYinventories.put(fruit, NYinventory);
+            return true;
         }
         else{
             int LAinventory = LAinventories.get(fruit);
-            cash = cash + amount * LAPrices.get(fruit);
+            int listlen10 = list.size();
+            List<Double> losangelesprice4 = LAprices.get(fruit);
+            double LAdailyprice4 = losangelesprice4.get(listlen10);
+            cash = cash + amount * LAdailyprice4;
             inventory -= amount;
             inventories.put(fruit, inventory);
             LAinventory += amount;
             LAinventories.put(fruit, LAinventory);
+            return true;
         }
     }
 
-    public static boolean buyFruits(int amount, String fruit, int location){
+    public static boolean buyFruits(int amount, String fruit, int location, List<String> list){
         // Function that gets the price and current inventory of the fruit and buys a specific number of them, then updating the variables.
         if (location == 1){
             if (NYinventories.get(fruit) < amount){
@@ -396,10 +404,12 @@ Prints the menu of options for the player to select, this accepts no inputs and 
                 return false;
             }
             else{
-                double price = NYprices.get(fruit);
                 int inventory = NYinventories.get(fruit);
-                if (amount * price < cash){
-                    cash-= amount * price;
+                int listlen9 = list.size();
+                List<Double> newyorkprice2 = NYprices.get(fruit);
+                double NYdailyprice2 = newyorkprice2.get(listlen9);
+                if (amount * NYdailyprice2 < cash){
+                    cash-= amount * NYdailyprice2;
                     inventory -= amount;
                     NYinventories.put(fruit, inventory);
                     return true;
@@ -416,10 +426,12 @@ Prints the menu of options for the player to select, this accepts no inputs and 
                 return false;
             }
             else{
-                double price = LAprices.get(fruit);
-                int inventory = LAinventories.get(fruit);
-                if (amount * price < cash){
-                    cash-= amount * price;
+              int inventory = LAinventories.get(fruit);
+              int listlen10 = list.size();
+              List<Double> losangelesprice2 = LAprices.get(fruit);
+              double LAdailyprice2 = losangelesprice2.get(listlen10);
+                if (amount * LAdailyprice2 < cash){
+                    cash-= amount * LAdailyprice2;
                     inventory -= amount;
                     LAinventories.put(fruit, inventory);
                     return true;
@@ -453,7 +465,7 @@ Prints the menu of options for the player to select, this accepts no inputs and 
     }
     public static int totalinventory(int listlength, Hashtable<String, Integer> hashtable, List<String> list){
         int number = 0;
-        for(int i = 0; i<listlen8; i++){
+        for(int i = 0; i<listlength; i++){
             String fruit = list.get(i);
             int fruitcount = hashtable.get(fruit);
             number += fruitcount;
