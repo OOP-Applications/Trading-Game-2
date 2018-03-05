@@ -12,8 +12,8 @@ These blocks of code generate the initial variables that will be used  throughou
 
     static double cash = INITIAL_CASH;
     //This creates the hashtables to be used to keep track of prices and inventories.
-    static final Hashtable<String, List> NYprices = new Hashtable<String, List> ();
-    static final Hashtable<String, List> LAprices = new Hashtable<String, List> ();
+    static final Hashtable<String, List<Double>> NYprices = new Hashtable<String, List<Double>> ();
+    static final Hashtable<String, List<Double>> LAprices = new Hashtable<String, List<Double>> ();
     static final Hashtable<String, Integer> inventories = new Hashtable<String, Integer> ();
     static final Hashtable<String, Integer> NYinventories = new Hashtable<String, Integer> ();
     static final Hashtable<String, Integer> LAinventories = new Hashtable<String, Integer> ();
@@ -41,15 +41,10 @@ This is the main method, which
         NYprices.put("pear", pearNYlist);
         LAprices.put("apple", appleLAlist);
         LAprices.put("pear", pearLAlist);
+        inventories.put("apple", 0);
+        inventories.put("pear", 0);
         for (int day = 1; day <= NUMBER_OF_DAYS; day++){
             int listlen = fruitlist.size();
-            for (int i = 0; i < listlen; i++){
-                String fruiter = fruitlist.get(i);
-                List<Double> newyorkprice = NYprices.get(fruiter);
-                double newyorkbaseprice = newyorkprice.get(listlen - 1);
-                List<Double> losangelesprice = LAprices.get(fruiter);
-                double losangelesbaseprice = losangelesprice.get(listlen - 1);
-            }
             System.out.println("Day: " + day + " out of 10");
             int choice;
             int amount;
@@ -59,14 +54,25 @@ This is the main method, which
                 String fruiter2 = fruitlist.get(i);
                 List<Double> newyorkprice = NYprices.get(fruiter2);
                 List<Double> losangelesprice = LAprices.get(fruiter2);
-                double NYdailyprice = newyorkprice.get(listlen12);
+                int NYlistlen = newyorkprice.size();
+                int LAlistlen = losangelesprice.size();
+                double NYdailyprice = newyorkprice.get(NYlistlen-1);
                 System.out.println("The price of " + fruiter2 + " in New York is " + currencyFormatter(NYdailyprice));
-                double LAdailyprice = losangelesprice.get(listlen12);
+                double LAdailyprice = losangelesprice.get(LAlistlen-1);
                 System.out.println("The price of " + fruiter2 + " in Los Angeles is " + currencyFormatter(LAdailyprice));
-                int NYcurrentinventory = NYinventories.get(i);
-                System.out.println("There are " + NYcurrentinventory + fruiter2 + "s in New York.");
-                int LAcurrentinventory = LAinventories.get(i);
-                System.out.println("There are " + LAcurrentinventory + fruiter2 + "s in Los Angeles");
+                int NYcurrentinventory = NYinventories.get(fruiter2);
+                System.out.println("There are " + NYcurrentinventory + " " + fruiter2 + "s in New York.");
+                int LAcurrentinventory = LAinventories.get(fruiter2);
+                System.out.println("There are " + LAcurrentinventory + " " + fruiter2 + "s in Los Angeles");
+            }
+            for (int i = 0; i < listlen; i++){
+                String fruiter = fruitlist.get(i);
+                int NYlistlen4 = newyorkprice.size();
+                int LAlistlen4 = losangelesprice.size();
+                List<Double> newyorkprice = NYprices.get(fruiter);
+                double newyorkbaseprice = newyorkprice.get(NYlistlen4 - 1);
+                List<Double> losangelesprice = LAprices.get(fruiter);
+                double losangelesbaseprice = losangelesprice.get(LAlistlen4 - 1);
             }
             System.out.println("There is a $0.25 travel fee per fruit.");
             System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
@@ -137,26 +143,29 @@ This is the main method, which
 
                         break;
                     case 2: //Print today's prices
-                    for (int i = 0; i <listlen; i++){
-                        String fruiter4 = fruitlist.get(i);
-                        List<Double> newyorkprice = NYprices.get(fruiter4);
-                        List<Double> losangelesprice = LAprices.get(fruiter4);
-                        double NYdailyprice = newyorkprice.get(i);
-                        System.out.println("The price of " + fruiter4 + " in New York is " + currencyFormatter(NYdailyprice));
-                        double LAdailyprice = losangelesprice.get(i);
-                        System.out.println("The price of " + fruiter4 + " in Los Angeles is " + currencyFormatter(LAdailyprice));
-                    }
+                        for (int i = 0; i <listlen; i++){
+                            String fruiter4 = fruitlist.get(i);
+                            List<Double> newyorkprice = NYprices.get(fruiter4);
+                            List<Double> losangelesprice = LAprices.get(fruiter4);
+                            int NYlistlen2 = newyorkprice.size();
+                            int LAlistlen2 = losangelesprice.size();
+                            double NYdailyprice = newyorkprice.get(NYlistlen2 - 1);
+                            System.out.println("The price of " + fruiter4 + " in New York is " + currencyFormatter(NYdailyprice));
+                            double LAdailyprice = losangelesprice.get(LAlistlen2 - 1);
+                            System.out.println("The price of " + fruiter4 + " in Los Angeles is " + currencyFormatter(LAdailyprice));
+                        }
+                        break;
                     case 3: //Print inventory of current city
                         if (location == 1){
                             for (int i = 0; i <listlen; i++){
                                 String fruiter5 = fruitlist.get(i);
-                                System.out.println("There are " + NYinventories.get(fruiter5) + fruiter5 + "s in New York");
+                                System.out.println("There are " + NYinventories.get(fruiter5) + " " + fruiter5 + "s in New York");
                             }
                         }
                         else{
                             for (int i = 0; i <listlen; i++){
                                 String fruiter6 = fruitlist.get(i);
-                                System.out.println("There are " + LAinventories.get(fruiter6) + fruiter6 + "s in New York");
+                                System.out.println("There are " + LAinventories.get(fruiter6) + " " + fruiter6 + "s in New York");
                             }
                         }
                         break;
@@ -231,7 +240,7 @@ This is the main method, which
                             System.out.println("Its not in the list, Try again: ");
                         }
                 }
-            }while (choice != 8);
+            }while (choice != 7);
         }
         System.out.println("You finished with: " + currencyFormatter(cash));
 
@@ -407,11 +416,15 @@ Prints the menu of options for the player to select, this accepts no inputs and 
                 int inventory = NYinventories.get(fruit);
                 int listlen9 = list.size();
                 List<Double> newyorkprice2 = NYprices.get(fruit);
-                double NYdailyprice2 = newyorkprice2.get(listlen9);
+                int NYlistlen3 = newyorkprice2.size();
+                double NYdailyprice2 = newyorkprice2.get(NYlistlen3 - 1);
                 if (amount * NYdailyprice2 < cash){
                     cash-= amount * NYdailyprice2;
                     inventory -= amount;
                     NYinventories.put(fruit, inventory);
+                    int userinventory = inventories.get(fruit);
+                    userinventory += amount;
+                    inventories.put(fruit, userinventory);
                     return true;
                 }
                 else{
@@ -429,11 +442,15 @@ Prints the menu of options for the player to select, this accepts no inputs and 
               int inventory = LAinventories.get(fruit);
               int listlen10 = list.size();
               List<Double> losangelesprice2 = LAprices.get(fruit);
-              double LAdailyprice2 = losangelesprice2.get(listlen10);
+              int LAlistlen3 = losangelesprice2.size();
+              double LAdailyprice2 = losangelesprice2.get(LAlistlen3 - 1);
                 if (amount * LAdailyprice2 < cash){
                     cash-= amount * LAdailyprice2;
                     inventory -= amount;
                     LAinventories.put(fruit, inventory);
+                    int userinventory2 = inventories.get(fruit);
+                    userinventory2 += amount;
+                    inventories.put(fruit, userinventory2);
                     return true;
                 }
                 else{
