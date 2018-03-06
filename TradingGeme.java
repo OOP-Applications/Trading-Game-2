@@ -67,11 +67,11 @@ This is the main method, which
             }
             for (int i = 0; i < listlen; i++){
                 String fruiter = fruitlist.get(i);
+                List<Double> newyorkprice = NYprices.get(fruiter);
+                List<Double> losangelesprice = LAprices.get(fruiter);
                 int NYlistlen4 = newyorkprice.size();
                 int LAlistlen4 = losangelesprice.size();
-                List<Double> newyorkprice = NYprices.get(fruiter);
                 double newyorkbaseprice = newyorkprice.get(NYlistlen4 - 1);
-                List<Double> losangelesprice = LAprices.get(fruiter);
                 double losangelesbaseprice = losangelesprice.get(LAlistlen4 - 1);
             }
             System.out.println("There is a $0.25 travel fee per fruit.");
