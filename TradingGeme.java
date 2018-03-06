@@ -73,6 +73,12 @@ This is the main method, which
                 int LAlistlen4 = losangelesprice.size();
                 double newyorkbaseprice = newyorkprice.get(NYlistlen4 - 1);
                 double losangelesbaseprice = losangelesprice.get(LAlistlen4 - 1);
+                double newyorknewprice = computePrice(newyorkbaseprice, VARIATION);
+                newyorkprice.add(newyorknewprice);
+                NYprices.put(fruiter, newyorkprice);
+                double losangelesnewprice = computePrice(losangelesbaseprice, VARIATION);
+                losangelesprice.add(losangelesnewprice);
+                LAprices.put(fruiter, losangelesprice);
             }
             System.out.println("There is a $0.25 travel fee per fruit.");
             System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
@@ -143,7 +149,8 @@ This is the main method, which
 
                         break;
                     case 2: //Print today's prices
-                        for (int i = 0; i <listlen; i++){
+                        int listlen14 = fruitlist.size();
+                        for (int i = 0; i <listlen14; i++){
                             String fruiter4 = fruitlist.get(i);
                             List<Double> newyorkprice = NYprices.get(fruiter4);
                             List<Double> losangelesprice = LAprices.get(fruiter4);
@@ -156,16 +163,17 @@ This is the main method, which
                         }
                         break;
                     case 3: //Print inventory of current city
+                        int listlen13 = fruitlist.size();
                         if (location == 1){
-                            for (int i = 0; i <listlen; i++){
+                            for (int i = 0; i <listlen13; i++){
                                 String fruiter5 = fruitlist.get(i);
                                 System.out.println("There are " + NYinventories.get(fruiter5) + " " + fruiter5 + "s in New York");
                             }
                         }
                         else{
-                            for (int i = 0; i <listlen; i++){
+                            for (int i = 0; i <listlen13; i++){
                                 String fruiter6 = fruitlist.get(i);
-                                System.out.println("There are " + LAinventories.get(fruiter6) + " " + fruiter6 + "s in New York");
+                                System.out.println("There are " + LAinventories.get(fruiter6) + " " + fruiter6 + "s in Los Angeles");
                             }
                         }
                         break;
@@ -383,7 +391,8 @@ Prints the menu of options for the player to select, this accepts no inputs and 
             int NYinventory = NYinventories.get(fruit);
             int listlen11 = list.size();
             List<Double> newyorkprice4 = NYprices.get(fruit);
-            double NYdailyprice4 = newyorkprice4.get(listlen11);
+            int NYlistlen5 = newyorkprice4.size();
+            double NYdailyprice4 = newyorkprice4.get(NYlistlen5-1);
             cash = cash + amount * NYdailyprice4;
             inventory -= amount;
             inventories.put(fruit, inventory);
@@ -395,7 +404,8 @@ Prints the menu of options for the player to select, this accepts no inputs and 
             int LAinventory = LAinventories.get(fruit);
             int listlen10 = list.size();
             List<Double> losangelesprice4 = LAprices.get(fruit);
-            double LAdailyprice4 = losangelesprice4.get(listlen10);
+            int LAlistlen5 = losangelesprice4.size();
+            double LAdailyprice4 = losangelesprice4.get(LAlistlen5-1);
             cash = cash + amount * LAdailyprice4;
             inventory -= amount;
             inventories.put(fruit, inventory);
