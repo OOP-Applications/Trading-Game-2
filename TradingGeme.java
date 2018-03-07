@@ -1,7 +1,13 @@
 import java.text.*;
 import java.util.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 
-class TradingGeme{
+public class TradingGeme extends Application{
 /**
 These blocks of code generate the initial variables that will be used  throughout the game
 */
@@ -21,7 +27,8 @@ These blocks of code generate the initial variables that will be used  throughou
 /**
 This is the main method, which
 */
-    public static void main(String[] args){
+    @Override
+    public void start(Stage stage){
         List<String> fruitlist = new ArrayList<>();
         fruitlist.add("pear");
         fruitlist.add("apple");
@@ -259,6 +266,47 @@ This is the main method, which
         }
         System.out.println("You finished with: " + currencyFormatter(cash));
 
+        Scanner keyboard = new Scanner(System.in);
+        XYChart.Series<Number,Number> series1 = new XYChart.Series<Number,Number>();
+        XYChart.Series<Number,Number> series2 = new XYChart.Series<Number,Number>();
+
+        List <Double> NYappleprices = NYprices.get("apple");
+        List <Double> NYpearprices = NYprices.get("pear");
+        List <Double> LAappleprices = LAprices.get("apple");
+        List <Double> LApearprices = LAprices.get("pear");
+
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+
+        xAxis.setLabel("Day");
+        yAxis.setLabel("Price (Dollars)");
+
+        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+
+        System.out.println("Would you like to graph New York fruits or Los Angleles fruits? (1 or 2)");
+
+        int citychoice = keyboard.nextInt();
+        if (citychoice == 1){
+            populate(series1, NYappleprices);
+            populate(series2, NYpearprices);
+            series1.setName("NY Apple Prices");
+            series2.setName("NY Pear Prices");
+            lineChart.getData().add(series1);
+            lineChart.getData().add(series2);
+            stage.setTitle("New York Daily Prices");
+        } else{
+            populate(series1, LAappleprices);
+            populate(series2, LApearprices);
+            series1.setName("LA Apple Prices");
+            series2.setName("LA Pear Prices");
+            lineChart.getData().add(series1);
+            lineChart.getData().add(series2);
+            stage.setTitle("Los Angeles Daily Prices");
+        }
+        Scene scene = new Scene(lineChart,800,600);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
 /**
@@ -505,6 +553,15 @@ Prints the menu of options for the player to select, this accepts no inputs and 
             number += fruitcount;
         }
         return number;
+    }
+    public static void populate(XYChart.Series<Number,Number> series, List<Double> list){
+        for(int i = 0; i <10; i++){
+            series.getData().add(new XYChart.Data<>(i+1, list.get(i)));
+        }
+    }
+
+    public static void main(String[] args){
+        Application.launch(args);
     }
 
 }
