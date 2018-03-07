@@ -30,13 +30,9 @@ This is the main method, which
         LAinventories.put("apple", (int) (20 + (Math.random() * 10)));
         LAinventories.put("pear", (int) (20 + (Math.random() * 10)));
         List<Double> appleNYlist = new ArrayList<>();
-        appleNYlist.add(computePrice(BASE_PRICE, VARIATION));
         List<Double> pearNYlist = new ArrayList<>();
-        pearNYlist.add(computePrice(BASE_PRICE, VARIATION));
         List<Double> appleLAlist = new ArrayList<>();
-        appleLAlist.add(computePrice(BASE_PRICE, VARIATION));
         List<Double> pearLAlist = new ArrayList<>();
-        pearLAlist.add(computePrice(BASE_PRICE, VARIATION));
         NYprices.put("apple", appleNYlist);
         NYprices.put("pear", pearNYlist);
         LAprices.put("apple", appleLAlist);
@@ -49,6 +45,31 @@ This is the main method, which
             int choice;
             int amount;
             Scanner keyboard = new Scanner(System.in);
+            for (int i = 0; i < listlen; i++){
+                String fruiter = fruitlist.get(i);
+                List<Double> newyorkprice = NYprices.get(fruiter);
+                List<Double> losangelesprice = LAprices.get(fruiter);
+                int NYlistlen4 = newyorkprice.size();
+                int LAlistlen4 = losangelesprice.size();
+                if(NYlistlen4 == 0 && LAlistlen4 == 0){
+                    double newyorknewprice = computePrice(BASE_PRICE, VARIATION);
+                    newyorkprice.add(newyorknewprice);
+                    NYprices.put(fruiter, newyorkprice);
+                    double losangelesnewprice = computePrice(BASE_PRICE, VARIATION);
+                    losangelesprice.add(losangelesnewprice);
+                    LAprices.put(fruiter, losangelesprice);
+                }
+                else{
+                    double newyorkbaseprice = newyorkprice.get(NYlistlen4 - 1);
+                    double losangelesbaseprice = losangelesprice.get(LAlistlen4 - 1);
+                    double newyorknewprice = computePrice(newyorkbaseprice, VARIATION);
+                    newyorkprice.add(newyorknewprice);
+                    NYprices.put(fruiter, newyorkprice);
+                    double losangelesnewprice = computePrice(losangelesbaseprice, VARIATION);
+                    losangelesprice.add(losangelesnewprice);
+                    LAprices.put(fruiter, losangelesprice);
+                }
+            }
             for (int i = 0; i <listlen; i++){
                 int listlen12 = fruitlist.size();
                 String fruiter2 = fruitlist.get(i);
@@ -65,21 +86,7 @@ This is the main method, which
                 int LAcurrentinventory = LAinventories.get(fruiter2);
                 System.out.println("There are " + LAcurrentinventory + " " + fruiter2 + "s in Los Angeles");
             }
-            for (int i = 0; i < listlen; i++){
-                String fruiter = fruitlist.get(i);
-                List<Double> newyorkprice = NYprices.get(fruiter);
-                List<Double> losangelesprice = LAprices.get(fruiter);
-                int NYlistlen4 = newyorkprice.size();
-                int LAlistlen4 = losangelesprice.size();
-                double newyorkbaseprice = newyorkprice.get(NYlistlen4 - 1);
-                double losangelesbaseprice = losangelesprice.get(LAlistlen4 - 1);
-                double newyorknewprice = computePrice(newyorkbaseprice, VARIATION);
-                newyorkprice.add(newyorknewprice);
-                NYprices.put(fruiter, newyorkprice);
-                double losangelesnewprice = computePrice(losangelesbaseprice, VARIATION);
-                losangelesprice.add(losangelesnewprice);
-                LAprices.put(fruiter, losangelesprice);
-            }
+
             System.out.println("There is a $0.25 travel fee per fruit.");
             System.out.println("Would you like to trade in New York or Los Angeles? Enter 1 for NY or 2 for LA ");
             int location = keyboard.nextInt();
