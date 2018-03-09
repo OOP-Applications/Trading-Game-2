@@ -23,6 +23,7 @@ These blocks of code generate the initial variables that will be used  throughou
     static final Hashtable<String, Integer> inventories = new Hashtable<String, Integer> ();
     static final Hashtable<String, Integer> NYinventories = new Hashtable<String, Integer> ();
     static final Hashtable<String, Integer> LAinventories = new Hashtable<String, Integer> ();
+    static final int day = 1;
 
 /**
 This is the main method, which
@@ -251,6 +252,11 @@ This is the main method, which
                             LAinventories.put(newfruit, (int) (20 + (Math.random() * 10)));
                             List<Double> NYnewfruitlist = new ArrayList<>();
                             List<Double> LAnewfruitlist = new ArrayList<>();
+                            for(int i = 0; i < day; i++){
+                              double zeroprice = 0.00;
+                              NYnewfruitlist.add(zeroprice);
+                              LAnewfruitlist.add(zeroprice);
+                            }
                             NYnewfruitlist.add(computePrice(BASE_PRICE, VARIATION));
                             LAnewfruitlist.add(computePrice(BASE_PRICE, VARIATION));
                             NYprices.put(newfruit, NYnewfruitlist);
@@ -267,13 +273,15 @@ This is the main method, which
         System.out.println("You finished with: " + currencyFormatter(cash));
 
         Scanner keyboard = new Scanner(System.in);
+        /*
         XYChart.Series<Number,Number> series1 = new XYChart.Series<Number,Number>();
         XYChart.Series<Number,Number> series2 = new XYChart.Series<Number,Number>();
 
         List <Double> NYappleprices = NYprices.get("apple");
         List <Double> NYpearprices = NYprices.get("pear");
         List <Double> LAappleprices = LAprices.get("apple");
-        List <Double> LApearprices = LAprices.get("pear");
+        List <Double> LApearprices = LAprices.get("pear");*/
+
 
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -284,8 +292,27 @@ This is the main method, which
         final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
 
         System.out.println("Would you like to graph New York fruits or Los Angleles fruits? (1 or 2)");
-
         int citychoice = keyboard.nextInt();
+        int listlen15 = fruitlist.size();
+        for (int i = 0; i< listlen15; i++){
+            XYChart.Series<Number,Number> series = new XYChart.Series<Number,Number>();
+            String fruiter7 = fruitlist.get(i);
+            if (citychoice == 1){
+              List <Double> NYFruitPrices = NYprices.get(fruiter7);
+              populate(series, NYFruitPrices);
+              series.setName("NY " + fruiter7 + " Prices");
+              lineChart.getData().add(series);
+              stage.setTitle("New York Daily Prices");
+            }
+            else{
+              List <Double> LAFruitPrices = LAprices.get(fruiter7);
+              populate(series, LAFruitPrices);
+              series.setName("LA " + fruiter7 + " Prices");
+              lineChart.getData().add(series);
+              stage.setTitle("Los Angeles Daily Prices");
+            }
+        }
+        /*
         if (citychoice == 1){
             populate(series1, NYappleprices);
             populate(series2, NYpearprices);
@@ -303,6 +330,7 @@ This is the main method, which
             lineChart.getData().add(series2);
             stage.setTitle("Los Angeles Daily Prices");
         }
+        */
         Scene scene = new Scene(lineChart,800,600);
 
         stage.setScene(scene);
